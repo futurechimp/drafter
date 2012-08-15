@@ -25,7 +25,6 @@ module Drafter
   end
 
 	def save(*args)
-		puts "I can't save, I'm draftable"
 		# do nothing
 	end
 end
