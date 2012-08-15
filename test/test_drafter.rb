@@ -1,4 +1,5 @@
 require 'helper'
+require 'debugger'
 
 class TestDrafter < MiniTest::Unit::TestCase
   
@@ -29,7 +30,10 @@ class TestDrafter < MiniTest::Unit::TestCase
 				it "should still have text of 'foo'" do
 					assert_equal("foo", @article.reload.text)
 				end
-				it "should have 1 draft"
+
+				it "should have a draft attached" do
+					assert_equal(Draft, @article.draft.class)
+				end
 			end
 			describe "the article's draft" do
 				it "exists"
