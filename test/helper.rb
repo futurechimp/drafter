@@ -12,8 +12,9 @@ require 'debugger'
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-require 'drafter'
+
 require 'active_record'
+require 'drafter'
 
 # Establish a connection to our test database
 ActiveRecord::Base.establish_connection(
