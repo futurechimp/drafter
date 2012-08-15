@@ -4,12 +4,12 @@ module Drafter
     extend ActiveSupport::Concern
 
     included do
-      before_save :create_a_draft
+      after_save :create_a_draft
     end
 
     def create_a_draft
-      puts "attempting draft creation, self.id = #{self.to_param.to_s}"
-      draft = Draft.create!(:draftable => self, :data => "blap")
+      draft = Draft.new(:draftable => self, :data => "blap")
+      draft.save!
     end
 
   end

@@ -4,9 +4,6 @@ require 'debugger'
 class TestDrafter < MiniTest::Unit::TestCase
   
 	describe "Saving a draftable article" do
-		# before do
-		# 	@article = Article.new(:text => "foo")
-		# end
 		# describe "the first time" do
 		# 	before do
 		# 		@article.save
@@ -36,8 +33,9 @@ class TestDrafter < MiniTest::Unit::TestCase
 				end
 			end
 			describe "the article's draft" do
-				it "exists"
-				it "has a serialized :text attribute with content 'bar'"
+				it "has a serialized :text attribute with content 'bar'" do
+					assert_equal('bar', @article.draft.data["text"])
+				end
 			end
 		end
 
