@@ -10,13 +10,18 @@ module Drafter
   extend ActiveSupport::Autoload
 
   # load File.dirname(__FILE__) + '/drafter/creation.rb'
-  # autoload :Retrieval
+  autoload :Draft
+  autoload :Draftable
+
+  class << self
+    delegate :config, :configure, :to => Draft
+  end  
 
   module ClassMethods
   	def draftable
-  		# include Creation
+  		include Draftable
 
-  		# has_one :draft
+  		has_one :draft, :as => :draftable
   	end
   end
 

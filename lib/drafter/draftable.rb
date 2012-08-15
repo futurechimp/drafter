@@ -16,7 +16,7 @@ module Drafter
         end
       end
 
-      # For all ActiveRecord::Base models that do not call the +versioned+ method, the +versioned?+
+      # For all ActiveRecord::Base models that do not call the +draftable+ method, the +draftable?+
       # method will return false.
       def draftable?
         false
