@@ -3,13 +3,11 @@ require 'active_support/dependencies/autoload'
 require 'active_support/core_ext/module/delegation'
 require 'active_record'
 
-puts "Drafter loaded"
-
 module Drafter
   extend ActiveSupport::Concern
   extend ActiveSupport::Autoload
 
-  # load File.dirname(__FILE__) + '/drafter/creation.rb'
+  autoload :Creation
   autoload :Draft
   autoload :Draftable
 
@@ -19,13 +17,15 @@ module Drafter
 
   module ClassMethods
   	def draftable
+  		include Creation
   		include Draftable
 
   		has_one :draft, :as => :draftable
   	end
   end
 
-	def save
+	def save(*args)
+		puts "I can't save, I'm draftable"
 		# do nothing
 	end
 end
