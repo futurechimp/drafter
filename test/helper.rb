@@ -7,11 +7,22 @@ rescue Bundler::BundlerError => e
   $stderr.puts "Run `bundle install` to install missing gems"
   exit e.status_code
 end
-require 'minitest/unit'
+require 'minitest/spec'
+
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'drafter'
+require 'active_record'
+
+# Establish a connection to our test database
+ActiveRecord::Base.establish_connection(
+	:adapter => "sqlite3",
+	:database => File.dirname(__FILE__) + "/drafter.sqlite3")
+
+load File.dirname(__FILE__) + '/support/schema.rb'
+load File.dirname(__FILE__) + '/support/models.rb'
+load File.dirname(__FILE__) + '/support/data.rb'
 
 class MiniTest::Unit::TestCase
 end
