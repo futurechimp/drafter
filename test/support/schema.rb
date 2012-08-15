@@ -8,6 +8,7 @@ ActiveRecord::Schema.define do
   end
 
   create_table :drafts, :force => true do |t|
-  	t.text :data 
+  	t.text :data
+  	t.references :draftable, :polymorphic => true
   end
 end
