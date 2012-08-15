@@ -1,18 +1,16 @@
-puts "creation loaded"
-
 module Drafter
-	module Creation
-		extend ActiveSupport::Concern 
+  # Adds a flag to determine whether a model class is draftable.
+  module Creation
+    extend ActiveSupport::Concern
 
-		included do
-			
-		end
+    included do
+      before_save :create_a_draft
+    end
 
-		module InstanceMethods
+    def create_a_draft
+      puts "attempting draft creation, self.id = #{self.to_param.to_s}"
+      draft = Draft.create!(:draftable => self, :data => "blap")
+    end
 
-			def save
-				puts "fuck you!"
-			end
-		end
-	end
+  end
 end
