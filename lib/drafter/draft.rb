@@ -1,3 +1,11 @@
+# A model to store serialized draft data. Drafts attach themselves
+# polymorphically to any other ActiveRecord class, loop through the
+# target draftable classes's attributes, and store them as a Hash
+# in the :data text field in the database.
+#
+# Drafts can also keep track of the target draftable's CarrierWave uploads,
+# if any exist.
+#
 class Draft < ActiveRecord::Base
 
 	# Validations
