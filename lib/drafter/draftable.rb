@@ -8,8 +8,6 @@ module Drafter
     module ClassMethods
       def draftable(*args)
         
-        has_one :draft, :as => :draftable
-        
         class << self
           def draftable?
             true
