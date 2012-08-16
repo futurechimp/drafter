@@ -1,6 +1,6 @@
 # require 'carrierwave/processing/rmagick'
 
-class PhotoUploader < CarrierWave::Uploader::Base
+class Uploader < CarrierWave::Uploader::Base
 
   ##
   # Storage type
