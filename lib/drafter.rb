@@ -3,6 +3,8 @@ require 'active_support/dependencies/autoload'
 require 'active_support/core_ext/module/delegation'
 require 'active_record'
 
+require 'lib/drafter/draft_uploader'
+
 module Drafter
   extend ActiveSupport::Concern
   extend ActiveSupport::Autoload
