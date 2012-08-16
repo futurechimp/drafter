@@ -10,14 +10,13 @@ class Draft < ActiveRecord::Base
 	belongs_to :draftable, :polymorphic => true
 
 
-	# Store serialized data for the associated draftable
-	# as a Hash of attributes.
+	# Store serialized data for the associated draftable as a Hash of 
+  # attributes.
 	#
   serialize :data, Hash
 
-  # Approve a draft, setting the attributes of the draftable object
-  # to contain the draft content, saving the draftable, and 
-  # destroying the draft. 
+  # Approve a draft, setting the attributes of the draftable object to 
+  # contain the draft content, saving the draftable, and destroying the draft. 
   #
   def approve!
   	draftable = build_draftable
@@ -25,8 +24,6 @@ class Draft < ActiveRecord::Base
       puts "sending #{key} with data #{data[key]}"
       draftable.raw_write_attribute key, self.data[key]
     end
-    # draftable.upload.
-    puts "upload: #{draftable.upload.filename}"
   	draftable.save!
   	self.destroy
   	draftable
