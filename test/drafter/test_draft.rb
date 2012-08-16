@@ -57,6 +57,7 @@ class TestDraft < Minitest::Unit::TestCase
 				@article.save
 				@article_count = Article.count
 				@article.text = "some draft text"
+				@article.upload = file_upload("bar.txt")
 				@draft = @article.save_draft
 				@draft_count = Draft.count
 				@draft.approve!
@@ -71,8 +72,8 @@ class TestDraft < Minitest::Unit::TestCase
 			end
 
 			it "should populate all the file uploads" do
-				assert_equal("foo.txt", @article.upload.filename)
-				assert_equal("foo foo foo", File.open(@article.upload.path).read)
+				assert_equal("bar.txt", @article.upload.filename)
+				assert_equal("bar bar bar", File.open(@article.upload.path).read)
 			end
 
 			it "should delete the article's draft" do
