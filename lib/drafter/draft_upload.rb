@@ -7,10 +7,10 @@ class DraftUpload < ActiveRecord::Base
 	# Validations
 	#
 	validates_presence_of :draft
-	validates_presence_of :original
+	validates_presence_of :file_data
 
 	# Macros
 	#
-	mount_uploader :original, DraftUploader
+	mount_uploader :file_data, DraftUploader
 
 end

@@ -6,8 +6,9 @@ class TestDraftUpload < Minitest::Unit::TestCase
 		subject { DraftUpload.new }
 
 		describe "validations" do
+			it { must validate_presence_of :file_data }			
 			it { must validate_presence_of :draft }
-			it { must validate_presence_of :original }			
+			# it { must validate_presence_of :draftable_mount_column }
 		end
 
 		describe "associations" do

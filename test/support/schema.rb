@@ -19,8 +19,9 @@ ActiveRecord::Schema.define do
   end
 
   create_table :draft_uploads, :force => true do |t|
-    t.text :original
     t.references :draft
+    t.string :draftable_mount_column
+    t.string :file_data
   end
 
 end
