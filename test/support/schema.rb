@@ -11,4 +11,9 @@ ActiveRecord::Schema.define do
   	t.text :data
   	t.references :draftable, :polymorphic => true
   end
+
+  change_table :drafts do |t|
+    t.index [:draftable_id, :draftable_type]
+    t.index :data
+  end
 end

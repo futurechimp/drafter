@@ -4,11 +4,12 @@ module Drafter
     extend ActiveSupport::Concern
 
     # Overrides the +draftable+ method to first define the +draftable?+ class method before
-    # deferring to the original +versioned+.
+    # deferring to the original +draftable+.
     module ClassMethods
       def draftable(*args)
-        super(*args)
-
+        
+        has_one :draft, :as => :draftable
+        
         class << self
           def draftable?
             true
@@ -21,6 +22,11 @@ module Drafter
       def draftable?
         false
       end
+    end
+
+    def save_draft
+      self.build_draft(:data => self.attributes)
+      self.draft.save
     end
 
   end
