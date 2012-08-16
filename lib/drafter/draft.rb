@@ -36,6 +36,8 @@ class Draft < ActiveRecord::Base
       dr
   	end
 
+    # Whack the draft data onto the real object.
+    #
     # @param [Draftable] a new or existing draftable to restore from the
     #   draft attributes.
     # @return [Draftable] the draftable object populated with the draft attrs.
@@ -46,7 +48,15 @@ class Draft < ActiveRecord::Base
       dr
     end
 
+    # Attach draft files to the real object.
+    #
+    # @param [Draftable] a new or existing draftable.
+    # @return [Draftable] the draftable object where CarrierWave uploads
+    #   on the object have been replaced with their draft equivalents.
     def restore_files_on(dr)
+      draft_uploads.each do |draft_upload|
+        dr.send(draft_upload.draftable_mount_column + "=", draft_upload.file_data)
+      end
     end
 
   	# We don't want to copy all the draft's columns into the draftable

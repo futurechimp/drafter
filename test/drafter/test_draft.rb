@@ -39,7 +39,10 @@ class TestDraft < Minitest::Unit::TestCase
 
 			it "should properly populate all the attributes" do
 				assert_equal("initial text", @article.text)
-				# assert_equal("foo.txt", @article.upload.to_s)
+			end
+
+			it "should populate all the file uploads" do
+				assert_equal("foo.txt", @article.upload.filename)
 			end
 
 			it "should delete the article's draft" do
