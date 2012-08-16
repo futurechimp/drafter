@@ -14,6 +14,18 @@ class TestDraftUpload < Minitest::Unit::TestCase
 		describe "associations" do
 			it { must belong_to :draft }		
 		end
+
+		describe "uploading files" do
+			it "works" do
+				draft_upload = DraftUpload.new(
+					:file_data => file_upload,
+					:draft => Draft.create(:data => {:foo => :bar}),
+					:draftable_mount_column => :photo
+				)
+				assert draft_upload.save!
+				assert File.exist?(draft_upload.reload.file_data.path)
+			end
+		end
 	end
 
 end
