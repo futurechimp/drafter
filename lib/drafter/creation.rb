@@ -11,12 +11,14 @@ module Drafter
 
     # Build and save the draft when told to do so.
     def save_draft
-      attrs = self.attributes
-      uploads = build_draft_uploads(attrs)
-      self.build_draft(:data => attrs)
-      self.draft.save!
-      self.draft.draft_uploads << uploads
-      self.draft
+      if self.valid?
+        attrs = self.attributes
+        uploads = build_draft_uploads(attrs)
+        self.build_draft(:data => attrs)
+        self.draft.save!
+        self.draft.draft_uploads << uploads
+        self.draft
+      end
     end
 
     private
@@ -45,7 +47,7 @@ module Drafter
       # @return [DraftUpload] containing the file in the uploader.
       def build_draft_upload(key)
         cw_uploader = self.send(key)
-        file = File.new(cw_uploader.file.path)
+        file = File.new(cw_uploader.file.path) if cw_uploader.file
         draft_upload = DraftUpload.new(
           :file_data => file, :draftable_mount_column => key)
       end
