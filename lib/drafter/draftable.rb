@@ -24,10 +24,5 @@ module Drafter
       end
     end
 
-    def save_draft
-      self.build_draft(:data => self.attributes)
-      self.draft.save
-    end
-
   end
 end

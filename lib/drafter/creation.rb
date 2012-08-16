@@ -5,6 +5,10 @@ module Drafter
   module Creation
     extend ActiveSupport::Concern
 
+    def save_draft
+      self.build_draft(:data => self.attributes)
+      self.draft.save
+    end
 
   end
 end
