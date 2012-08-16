@@ -8,7 +8,7 @@ class TestDrafter < MiniTest::Unit::TestCase
 				@article_count = Article.count
 				@draft_count = Draft.count
 				@article = Article.new(:text => "original text")
-				@article.save_draft
+				@article.save_draft 
 			end
 
 			it "should not create a new draftable" do
@@ -16,7 +16,7 @@ class TestDrafter < MiniTest::Unit::TestCase
 			end
 
 			it "should create a saved draft object" do
-				assert_equal(@draft_count + 1, Draft.count)				
+				assert_equal(@draft_count + 1, Draft.count)
 			end
 		end
 
