@@ -6,6 +6,7 @@ class Draft < ActiveRecord::Base
 
 	# Associations
 	#
+  has_many :draft_uploads
 	belongs_to :draftable, :polymorphic => true
 
 
