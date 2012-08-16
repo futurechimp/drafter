@@ -17,6 +17,7 @@ class Draft < ActiveRecord::Base
   def approve!
   	draftable = self.draftable_type.constantize.new
   	draftable.save!
+  	draftable
   end
 
 end

@@ -25,13 +25,16 @@ class TestDraft < Minitest::Unit::TestCase
 				@article_count = Article.count 
 				@draft = @article.save_draft
 				@draft_count = Draft.count
-				@draft.approve!
+				@article = @draft.approve!
 			end
 
 			it "should create an article" do
 				assert_equal(@article_count + 1, Article.count)
 			end
 
+			it "should return the saved article" do
+				assert_equal(Article, @article.class)
+			end
 			# it "should properly populate all the attributes"
 			# it "should delete the article's draft"
 		end
