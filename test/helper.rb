@@ -36,7 +36,7 @@ class MiniTest::Unit::TestCase
 
   # Pull in shoulda matchers for minitest.
   #
-  # You need to have the minitest-matchers gem and the minitest-rails-shoulda gem 
+  # You need to have the minitest-matchers gem and the minitest-rails-shoulda gem
   # for this to work.
   include Shoulda::Matchers::ActiveRecord
   extend Shoulda::Matchers::ActiveRecord
