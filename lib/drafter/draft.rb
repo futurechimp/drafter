@@ -25,6 +25,15 @@ class Draft < ActiveRecord::Base
   	draftable
   end
 
+  def method_missing(meth, *args, &block)
+    if self.data.keys.include?(meth.to_s)
+      self.data[meth.to_s]
+    else
+      super
+    end
+  end
+
+
   private
 
   	# @return the existing draftable object, or a new one of the proper

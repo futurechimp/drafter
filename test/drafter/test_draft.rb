@@ -16,12 +16,18 @@ class TestDraft < Minitest::Unit::TestCase
 
 	describe "Accessing draft data properties" do
 		before do
-			@draft = Draft.new(:data => {:foo => "bar"})
+			@draft = Draft.new(:data => {"foo" => "bar"})
 		end
 
 		describe "through the data hash" do
 			it "works" do
-				assert_equal("bar", @draft.data[:foo])
+				assert_equal("bar", @draft.data["foo"])
+			end
+		end
+
+		describe "using dot notation" do
+			it "also works" do
+				assert_equal("bar", @draft.foo)
 			end
 		end
 	end
