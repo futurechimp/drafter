@@ -15,6 +15,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
 require 'active_record'
 require 'drafter'
+require 'turn'
 
 # Establish a connection to our test database
 ActiveRecord::Base.establish_connection(
@@ -29,3 +30,9 @@ class MiniTest::Unit::TestCase
 end
 
 MiniTest::Unit.autorun
+
+Turn.config do |c|
+ c.format  = :outline
+ c.trace   = true
+ c.natural = true
+end
