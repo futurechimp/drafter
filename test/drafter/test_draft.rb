@@ -23,7 +23,7 @@ class TestDraft < Minitest::Unit::TestCase
 
 		describe "for an article which hasn't yet been saved" do
 			before do
-				@article_count = Article.count 
+				@article_count = Article.count
 				@draft = @article.save_draft
 				@draft_count = Draft.count
 				@article = @draft.approve!
@@ -36,12 +36,12 @@ class TestDraft < Minitest::Unit::TestCase
 			it "should return the saved article" do
 				assert_equal(Article, @article.class)
 			end
-			
+
 			it "should properly populate all the attributes" do
 				assert_equal("initial text", @article.text)
 				# assert_equal("foo.txt", @article.upload)
 			end
-			
+
 			it "should delete the article's draft" do
 				assert_equal(@draft_count - 1, Draft.count)
 				refute @article.draft
