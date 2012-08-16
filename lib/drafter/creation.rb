@@ -29,7 +29,6 @@ module Drafter
           if self.send(key).is_a?(CarrierWave::Uploader::Base)
             cw_uploader = self.send(key)
             file = File.new(cw_uploader.file.path)
-            puts "file: #{file}"
             draft_upload = DraftUpload.new(
               :file_data => file, :draftable_mount_column => key)
             draft_uploads << draft_upload
