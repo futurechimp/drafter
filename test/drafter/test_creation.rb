@@ -113,19 +113,28 @@ class TestCreation < Minitest::Unit::TestCase
 			end
 		end
 
-		# describe "an invalid article" do
-		# 	before do
-		# 		@draft_count = Draft.count
-		# 		@draft_upload_count = DraftUpload.count
-		# 		@article = Article.create!(:text => "original text")
-		# 		@article.text = ""
-		# 		@draft = @article.save_draft
-		# 	end
+		describe "an invalid article" do
+			before do
+				@draft_count = Draft.count
+				@draft_upload_count = DraftUpload.count
+				@article = Article.create!(:text => "original text")
+				@article.text = ""
+				@article.upload = file_upload
+				@draft = @article.save_draft
+			end
 
-		# 	it "should not create a draft object" do
-		# 		assert_equal(@draft_count, Draft.count)
-		# 	end
-		# end
+			it "should not create a Draft object" do
+				assert_equal(@draft_count, Draft.count)
+			end
+
+			it "should not create a DraftUpload object" do
+				assert_equal(@draft_upload_count, DraftUpload.count)
+			end
+
+			it "sets up validation errors on the @article" do
+				assert_equal(1, @article.errors.count)
+			end
+		end
 	end
 
 end
