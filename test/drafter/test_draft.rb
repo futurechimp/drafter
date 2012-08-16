@@ -10,13 +10,15 @@ class TestDraft < Minitest::Unit::TestCase
 		end
 
 		describe "associations" do
-			it "should belong_to a :draftable"		
+			it "should belong_to a :draftable"	
 		end
 	end
 
 	describe "Approving a draft" do
 		before do
-			@article = Article.new(:text => "initial text")
+			@article = Article.new(
+				:text => "initial text",
+				:upload => file_upload)
 		end
 
 		describe "for an article which hasn't yet been saved" do
@@ -37,6 +39,7 @@ class TestDraft < Minitest::Unit::TestCase
 			
 			it "should properly populate all the attributes" do
 				assert_equal("initial text", @article.text)
+				# assert_equal("foo.txt", @article.upload)
 			end
 			
 			it "should delete the article's draft" do

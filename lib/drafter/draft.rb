@@ -21,8 +21,11 @@ class Draft < ActiveRecord::Base
   def approve!
   	draftable = build_draftable
     draftable_columns.each do |key|
-      draftable.send("#{key}=", self.data[key])
+      puts "sending #{key} with data #{data[key]}"
+      draftable.raw_write_attribute key, self.data[key]
     end
+    # draftable.upload.
+    puts "upload: #{draftable.upload.filename}"
   	draftable.save!
   	self.destroy
   	draftable

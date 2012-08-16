@@ -27,12 +27,17 @@ ActiveRecord::Base.establish_connection(
 	:database => File.dirname(__FILE__) + "/drafter.sqlite3")
 
 load File.dirname(__FILE__) + '/support/schema.rb'
-load File.dirname(__FILE__) + '/support/photo_uploader.rb'
+load File.dirname(__FILE__) + '/support/uploader.rb'
 load File.dirname(__FILE__) + '/support/models.rb'
 load File.dirname(__FILE__) + '/support/data.rb'
 
 class MiniTest::Unit::TestCase
   include ::ValidAttribute::Method
+
+  def file_upload
+  	File.new(File.dirname(__FILE__) + "/fixtures/foo.txt")
+  end
+
 end
 
 MiniTest::Unit.autorun

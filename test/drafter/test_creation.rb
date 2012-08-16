@@ -7,7 +7,10 @@ class TestCreation < Minitest::Unit::TestCase
 			before do
 				@article_count = Article.count
 				@draft_count = Draft.count
-				@article = Article.new(:text => "original text")
+				@article = Article.new(
+					:text => "original text",
+					:upload => file_upload
+				)
 				@draft = @article.save_draft 
 			end
 
@@ -22,6 +25,14 @@ class TestCreation < Minitest::Unit::TestCase
 			it "should return the @draft object" do
 				assert_equal(Draft, @draft.class)
 			end
+
+			it "should save the contents of the :text attribute" do
+				assert_equal "original text", @draft.data["text"]
+			end
+
+			it "should save the contents of the CarrierWave attribute" do
+				assert_equal "foo.txt", @draft.data["upload"]
+			end
 		end
 
 		describe "an existing draftable article" do
@@ -29,6 +40,7 @@ class TestCreation < Minitest::Unit::TestCase
 				@draft_count = Draft.count
 				@article = Article.create!(:text => "original text")
 				@article.text = "draft text"
+				@article.upload = file_upload
 				@article.save_draft
 			end
 
@@ -50,6 +62,10 @@ class TestCreation < Minitest::Unit::TestCase
 				it "has a serialized :text attribute with content 'draft text'" do
 					assert_equal('draft text', @article.draft.data["text"])
 				end
+
+				it "should save the contents of the CarrierWave attribute" do
+					assert_equal "foo.txt", @article.draft.data["upload"]
+				end				
 			end
 		end
 	end

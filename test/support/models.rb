@@ -5,7 +5,7 @@ class Article < ActiveRecord::Base
 
 	draftable
 
-	mount_uploader :photo, PhotoUploader
+	mount_uploader :upload, Uploader
 
 end
 
