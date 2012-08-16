@@ -45,15 +45,22 @@ class TestDraft < Minitest::Unit::TestCase
 			end
 		end
 
-		describe "for an object which already exists" do
+		describe "for an article which already exists" do
 			before do
 				@article.save
+				@article_count = Article.count
 				@article.text = "some draft text"
-				@article.save_draft
+				@draft = @article.save_draft
+				@draft.approve!
 			end
 
-			it "should save the object"
-			it "should properly populate all the attributes"
+			it "shouldn't do anything mental, like creating a new object" do
+				assert_equal(@article_count, Article.count)
+			end
+
+			it "should properly populate all the attributes" do
+				assert_equal("some draft text", @article.text)
+			end
 		end
 	end
 
