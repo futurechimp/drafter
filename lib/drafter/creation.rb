@@ -12,24 +12,30 @@ module Drafter
     # Build and save the draft when told to do so.
     def save_draft
       attrs = self.attributes
-      attrs = do_carrierwave_check(attrs)
-      puts attrs
+      uploads = build_draft_uploads(attrs)
       self.build_draft(:data => attrs)
       self.draft.save!
+      puts "upload count: #{uploads.length}"
+      # debugger if uploads.length == 1
+      self.draft.draft_uploads << uploads
       self.draft
     end
 
     private 
 
-      def do_carrierwave_check(attrs)
-        cw_attrs = {}
+      def build_draft_uploads(attrs)
+        draft_uploads = []
         attrs.keys.each do |key|
           if self.send(key).is_a?(CarrierWave::Uploader::Base)
-            cw_attrs.merge!(key => self.send(key).filename)
+            cw_uploader = self.send(key)
+            file = File.new(cw_uploader.file.path)
+            puts "file: #{file}"
+            draft_upload = DraftUpload.new(
+              :file_data => file, :draftable_mount_column => key)
+            draft_uploads << draft_upload
           end
         end
-        attrs.merge!(cw_attrs)
-        attrs
+        draft_uploads
       end
 
   end
