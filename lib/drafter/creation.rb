@@ -19,7 +19,7 @@ module Drafter
       self.draft
     end
 
-    private 
+    private
 
       # Loop through and create DraftUpload objects for any Carrierwave
       # uploaders mounted on this draftable object.
@@ -36,12 +36,12 @@ module Drafter
         draft_uploads
       end
 
-      # Get a reference to the CarrierWave uploader mounted on the 
+      # Get a reference to the CarrierWave uploader mounted on the
       # current draftable object, grab the file in it, and shove
       # that file into a new DraftUpload.
-      # 
-      # @param [String] key the attribute where the CarrierWave uploader 
-      #   is mounted. 
+      #
+      # @param [String] key the attribute where the CarrierWave uploader
+      #   is mounted.
       # @return [DraftUpload] containing the file in the uploader.
       def build_draft_upload(key)
         cw_uploader = self.send(key)
