@@ -7,6 +7,7 @@ class DraftUpload < ActiveRecord::Base
 	# Validations
 	#
 	validates_presence_of :draft
+	validates_presence_of :draftable_mount_column
 	validates_presence_of :file_data
 
 	# Macros
