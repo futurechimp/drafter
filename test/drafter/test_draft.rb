@@ -43,6 +43,7 @@ class TestDraft < Minitest::Unit::TestCase
 
 			it "should populate all the file uploads" do
 				assert_equal("foo.txt", @article.upload.filename)
+				assert_equal("foo foo foo", File.open(@article.upload.path).read)
 			end
 
 			it "should delete the article's draft" do
