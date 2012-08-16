@@ -30,10 +30,16 @@ class Draft < ActiveRecord::Base
 
   private
 
+  	# @return the existing draftable object, or a new one of the proper
+  	# 	type.
   	def build_draftable
   		draftable.nil? ? self.draftable_type.constantize.new : draftable
   	end
 
+  	# We don't want to copy all the draft's columns into the draftable
+  	# objects attributes.
+  	#
+  	# @return [Array] the draft's columns minus :id, :created_at, :updated_at
     def draftable_columns
     	self.data.keys - ['id', 'created_at', 'updated_at']
     end
