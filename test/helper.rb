@@ -16,10 +16,11 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'active_record'
 require 'carrierwave'
 require 'carrierwave/orm/activerecord'
-require 'minitest/matchers'
-require 'valid_attribute'
 require 'drafter'
 require 'turn'
+require 'minitest/matchers'
+require "shoulda/matchers/active_record"
+require "shoulda/matchers/active_model"
 
 # Establish a connection to our test database
 ActiveRecord::Base.establish_connection(
@@ -32,7 +33,15 @@ load File.dirname(__FILE__) + '/support/models.rb'
 load File.dirname(__FILE__) + '/support/data.rb'
 
 class MiniTest::Unit::TestCase
-  include ::ValidAttribute::Method
+
+  # Pull in shoulda matchers for minitest.
+  #
+  # You need to have the minitest-matchers gem and the minitest-rails-shoulda gem 
+  # for this to work.
+  include Shoulda::Matchers::ActiveRecord
+  extend Shoulda::Matchers::ActiveRecord
+  include Shoulda::Matchers::ActiveModel
+  extend Shoulda::Matchers::ActiveModel
 
   def file_upload
   	File.new(File.dirname(__FILE__) + "/fixtures/foo.txt")

@@ -2,11 +2,10 @@ require 'helper'
 
 class TestDraft < Minitest::Unit::TestCase
 
-	describe "A Draft object" do
+	describe Draft do
 		describe "validations" do
-	    subject { @draft = Draft.new }
-	    it { must have_valid(:data).when({:foo => "bar"}) }
-	    it { wont have_valid(:data).when(nil) }
+			subject { @draft = Draft.new }
+		  it { must validate_presence_of(:data) }	    
 		end
 
 		describe "associations" do
