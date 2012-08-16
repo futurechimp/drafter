@@ -58,6 +58,7 @@ class TestDraft < Minitest::Unit::TestCase
 				@article_count = Article.count
 				@article.text = "some draft text"
 				@draft = @article.save_draft
+				@draft_count = Draft.count
 				@draft.approve!
 			end
 
@@ -67,6 +68,16 @@ class TestDraft < Minitest::Unit::TestCase
 
 			it "should properly populate all the attributes" do
 				assert_equal("some draft text", @article.text)
+			end
+
+			it "should populate all the file uploads" do
+				assert_equal("foo.txt", @article.upload.filename)
+				assert_equal("foo foo foo", File.open(@article.upload.path).read)
+			end
+
+			it "should delete the article's draft" do
+				assert_equal(@draft_count - 1, Draft.count)
+				refute @article.reload.draft
 			end
 		end
 	end
