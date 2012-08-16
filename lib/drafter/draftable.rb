@@ -6,8 +6,7 @@ module Drafter
     # Overrides the +draftable+ method to first define the +draftable?+ class method before
     # deferring to the original +draftable+.
     module ClassMethods
-      def draftable(*args)
-        
+      def draftable(*args)        
         class << self
           def draftable?
             true
