@@ -10,15 +10,17 @@ module Drafter
   autoload :Creation
   autoload :Draft
   autoload :Draftable
+  autoload :DraftUpload
 
   class << self
     delegate :config, :configure, :to => Draft
+    delegate :config, :configure, :to => DraftUpload
   end
 
   included do
   	include Creation
     include Draftable
-  end  
+  end
 
 end
 

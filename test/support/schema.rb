@@ -17,4 +17,10 @@ ActiveRecord::Schema.define do
     t.index [:draftable_id, :draftable_type]
     t.index :data
   end
+
+  create_table :draft_uploads, :force => true do |t|
+    t.text :original
+    t.references :draft
+  end
+
 end

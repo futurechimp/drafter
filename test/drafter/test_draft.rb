@@ -3,13 +3,14 @@ require 'helper'
 class TestDraft < Minitest::Unit::TestCase
 
 	describe Draft do
+		subject { @draft = Draft.new }
 		describe "validations" do
-			subject { @draft = Draft.new }
 		  it { must validate_presence_of(:data) }	    
 		end
 
 		describe "associations" do
-			it "should belong_to a :draftable"	
+			it { must belong_to(:draftable) }
+			# it { must have_many(:draft_uploads) }
 		end
 	end
 
