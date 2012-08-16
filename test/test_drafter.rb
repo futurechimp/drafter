@@ -1,5 +1,4 @@
 require 'helper'
-require 'debugger'
 
 class TestDrafter < MiniTest::Unit::TestCase
   
