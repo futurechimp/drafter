@@ -6,6 +6,7 @@ class DraftUpload < ActiveRecord::Base
 
 	# Validations
 	#
+	validates_presence_of :draft
 	validates_presence_of :original
 
 	# Macros
