@@ -43,8 +43,8 @@ class MiniTest::Unit::TestCase
   include Shoulda::Matchers::ActiveModel
   extend Shoulda::Matchers::ActiveModel
 
-  def file_upload
-  	File.new(File.dirname(__FILE__) + "/fixtures/foo.txt")
+  def file_upload(name="foo.txt")
+  	File.new(File.dirname(__FILE__) + "/fixtures/#{name}")
   end
 
 end
