@@ -5,7 +5,7 @@ class TestDraft < Minitest::Unit::TestCase
 	describe Draft do
 		subject { @draft = Draft.new }
 		describe "validations" do
-		  it { must validate_presence_of(:data) }	    
+		  it { must validate_presence_of(:data) }
 		end
 
 		describe "associations" do
