@@ -35,7 +35,10 @@ class TestDraft < Minitest::Unit::TestCase
 			it "should return the saved article" do
 				assert_equal(Article, @article.class)
 			end
-			# it "should properly populate all the attributes"
+			
+			it "should properly populate all the attributes" do
+				assert_equal("initial text", @article.text)
+			end
 			# it "should delete the article's draft"
 		end
 
