@@ -42,6 +42,7 @@ class TestDraft < Minitest::Unit::TestCase
 			
 			it "should delete the article's draft" do
 				assert_equal(@draft_count - 1, Draft.count)
+				refute @article.draft
 			end
 		end
 
