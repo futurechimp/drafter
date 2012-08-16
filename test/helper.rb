@@ -29,7 +29,6 @@ load File.dirname(__FILE__) + '/support/models.rb'
 load File.dirname(__FILE__) + '/support/data.rb'
 
 class MiniTest::Unit::TestCase
-  # include MiniTest::Assertions::ActiveRecord
   include ::ValidAttribute::Method
 end
 
