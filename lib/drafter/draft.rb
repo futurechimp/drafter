@@ -25,6 +25,10 @@ class Draft < ActiveRecord::Base
   	draftable
   end
 
+  # Set things up so we can use dot notation to access draft data, e.g.
+  # we can do either @foo.draft.data["title"] or (more neatly) we can
+  # do @foo.draft.title
+  #
   def method_missing(meth, *args, &block)
     if self.data.keys.include?(meth.to_s)
       self.data[meth.to_s]
