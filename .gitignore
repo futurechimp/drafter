@@ -1,4 +1,6 @@
 test/drafter.sqlite3
+uploads
+
 # rcov generated
 coverage
 
