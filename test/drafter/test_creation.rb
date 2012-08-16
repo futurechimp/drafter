@@ -12,7 +12,7 @@ class TestCreation < Minitest::Unit::TestCase
 					:text => "original text",
 					:upload => file_upload
 				)
-				@draft = @article.save_draft 
+				@draft = @article.save_draft
 			end
 
 			it "should not create a new draftable" do
