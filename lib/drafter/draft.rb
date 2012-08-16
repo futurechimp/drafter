@@ -14,4 +14,9 @@ class Draft < ActiveRecord::Base
 	#
   serialize :data, Hash
 
+  def approve!
+  	draftable = self.draftable_type.constantize.new
+  	draftable.save!
+  end
+
 end
