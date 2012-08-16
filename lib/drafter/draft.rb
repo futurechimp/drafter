@@ -38,7 +38,7 @@ class Draft < ActiveRecord::Base
 
     # Whack the draft data onto the real object.
     #
-    # @param [Draftable] a new or existing draftable to restore from the
+    # @param [Draftable] dr a new or existing draftable to restore from the
     #   draft attributes.
     # @return [Draftable] the draftable object populated with the draft attrs.
     def restore_attrs_on(dr)
@@ -50,7 +50,7 @@ class Draft < ActiveRecord::Base
 
     # Attach draft files to the real object.
     #
-    # @param [Draftable] a new or existing draftable.
+    # @param [Draftable] dr a new or existing draftable.
     # @return [Draftable] the draftable object where CarrierWave uploads
     #   on the object have been replaced with their draft equivalents.
     def restore_files_on(dr)
