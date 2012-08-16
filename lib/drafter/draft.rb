@@ -10,13 +10,13 @@ class Draft < ActiveRecord::Base
 	belongs_to :draftable, :polymorphic => true
 
 
-	# Store serialized data for the associated draftable as a Hash of 
+	# Store serialized data for the associated draftable as a Hash of
   # attributes.
 	#
   serialize :data, Hash
 
-  # Approve a draft, setting the attributes of the draftable object to 
-  # contain the draft content, saving the draftable, and destroying the draft. 
+  # Approve a draft, setting the attributes of the draftable object to
+  # contain the draft content, saving the draftable, and destroying the draft.
   #
   def approve!
   	draftable = build_draftable
