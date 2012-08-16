@@ -20,6 +20,7 @@ class Draft < ActiveRecord::Base
       draftable.send("#{key}=", self.data[key])
     end	
   	draftable.save!
+  	self.destroy
   	draftable
   end
 

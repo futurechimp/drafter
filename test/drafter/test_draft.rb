@@ -39,7 +39,10 @@ class TestDraft < Minitest::Unit::TestCase
 			it "should properly populate all the attributes" do
 				assert_equal("initial text", @article.text)
 			end
-			# it "should delete the article's draft"
+			
+			it "should delete the article's draft" do
+				assert_equal(@draft_count - 1, Draft.count)
+			end
 		end
 
 		describe "for an object which already exists" do
