@@ -109,15 +109,6 @@ class TestCreation < Minitest::Unit::TestCase
 					it "has a serialized :text attribute with content 'draft text'" do
 						assert_equal('draft text', @article.draft.data["text"])
 					end
-
-					it "should create a DraftUpload object" do
-						assert_equal(@draft_upload_count + 1, DraftUpload.count)
-					end
-
-					it "should add the draft_upload to the Draft's array of them" do
-						assert_equal(1, @draft.draft_uploads.length)
-						assert_equal(DraftUpload.last, @draft.draft_uploads.first)
-					end
 				end
 			end
 		end
