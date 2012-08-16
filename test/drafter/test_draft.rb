@@ -14,6 +14,18 @@ class TestDraft < Minitest::Unit::TestCase
 		end
 	end
 
+	describe "Accessing draft data properties" do
+		before do
+			@draft = Draft.new(:data => {:foo => "bar"})
+		end
+
+		describe "through the data hash" do
+			it "works" do
+				assert_equal("bar", @draft.data[:foo])
+			end
+		end
+	end
+
 	describe "Approving a draft" do
 		before do
 			@article = Article.new(
