@@ -15,6 +15,9 @@ GEM
     ansi (1.4.2)
     arel (3.0.2)
     builder (3.0.0)
+    carrierwave (0.6.2)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
     columnize (0.3.6)
     debugger (1.1.1)
       columnize (>= 0.3.1)
@@ -47,6 +50,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   bundler (~> 1.0.0)
+  carrierwave
   debugger
   jeweler (~> 1.6.4)
   minitest

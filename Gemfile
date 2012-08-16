@@ -16,4 +16,5 @@ group :development do
 	gem 'turn'
 	gem 'minitest-matchers'
 	gem 'valid_attribute'
+	gem 'carrierwave'
 end

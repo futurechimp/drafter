@@ -14,6 +14,8 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
 require 'active_record'
+require 'carrierwave'
+require 'carrierwave/orm/activerecord'
 require 'minitest/matchers'
 require 'valid_attribute'
 require 'drafter'
@@ -25,6 +27,7 @@ ActiveRecord::Base.establish_connection(
 	:database => File.dirname(__FILE__) + "/drafter.sqlite3")
 
 load File.dirname(__FILE__) + '/support/schema.rb'
+load File.dirname(__FILE__) + '/support/photo_uploader.rb'
 load File.dirname(__FILE__) + '/support/models.rb'
 load File.dirname(__FILE__) + '/support/data.rb'
 
