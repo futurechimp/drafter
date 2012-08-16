@@ -12,7 +12,8 @@ module Drafter
     # Build and save the draft when told to do so.
     def save_draft
       self.build_draft(:data => self.attributes)
-      self.draft.save
+      self.draft.save!
+      self.draft
     end
 
   end
