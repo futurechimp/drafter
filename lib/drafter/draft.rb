@@ -20,10 +20,6 @@ class Draft < ActiveRecord::Base
   #
   def approve!
   	draftable = build_draftable
-    draftable_columns.each do |key|
-      puts "sending #{key} with data #{data[key]}"
-      draftable.raw_write_attribute key, self.data[key]
-    end
   	draftable.save!
   	self.destroy
   	draftable
@@ -32,10 +28,26 @@ class Draft < ActiveRecord::Base
   private
 
   	# @return the existing draftable object, or a new one of the proper
-  	# 	type.
+  	# 	type, with attributes and files hanging off it.
   	def build_draftable
-  		draftable.nil? ? self.draftable_type.constantize.new : draftable
+  		dr = draftable.nil? ? self.draftable_type.constantize.new : draftable
+      restore_attrs_on(dr)
+      restore_files_on(dr)
+      dr
   	end
+
+    # @param [Draftable] a new or existing draftable to restore from the
+    #   draft attributes.
+    # @return [Draftable] the draftable object populated with the draft attrs.
+    def restore_attrs_on(dr)
+      draftable_columns.each do |key|
+        dr.raw_write_attribute key, self.data[key]
+      end
+      dr
+    end
+
+    def restore_files_on(dr)
+    end
 
   	# We don't want to copy all the draft's columns into the draftable
   	# objects attributes.
