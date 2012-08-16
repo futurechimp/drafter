@@ -4,7 +4,9 @@ class TestDraft < Minitest::Unit::TestCase
 
 	describe "A Draft object" do
 		describe "validations" do
-			it "should validate_presence_of :data"
+	    subject { @draft = Draft.new }
+	    it { must have_valid(:data).when({:foo => "bar"}) }
+	    it { wont have_valid(:data).when(nil) }
 		end
 
 		describe "associations" do
