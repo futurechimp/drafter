@@ -14,6 +14,8 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
 require 'active_record'
+require 'minitest/matchers'
+require 'valid_attribute'
 require 'drafter'
 require 'turn'
 
@@ -27,12 +29,14 @@ load File.dirname(__FILE__) + '/support/models.rb'
 load File.dirname(__FILE__) + '/support/data.rb'
 
 class MiniTest::Unit::TestCase
+  # include MiniTest::Assertions::ActiveRecord
+  include ::ValidAttribute::Method
 end
 
 MiniTest::Unit.autorun
 
 Turn.config do |c|
  c.format  = :outline
- c.trace   = true
+ c.trace   = false
  c.natural = true
 end
