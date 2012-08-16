@@ -12,7 +12,6 @@ class TestDraft < Minitest::Unit::TestCase
 		describe "associations" do
 			it "should belong_to a :draftable"		
 		end
-
 	end
 
 	describe "Approving a draft" do
