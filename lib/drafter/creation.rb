@@ -1,6 +1,7 @@
 module Drafter
 
-	# Takes care of associating and creating Draft objects for the draftable class.
+	# Takes care of associating and creating Draft objects for the draftable
+  # class.
   module Creation
     extend ActiveSupport::Concern
 
