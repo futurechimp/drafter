@@ -48,6 +48,8 @@ class Draft < ActiveRecord::Base
 
   private
 
+    # Find the existing draftable, or build a new one, and set it up.
+    #
   	# @return the existing draftable object, or a new one of the proper
   	# 	type, with attributes and files hanging off it.
   	def build_draftable
