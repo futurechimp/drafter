@@ -33,7 +33,8 @@ module Drafter
     #   on the object have been replaced with their draft equivalents.
     def restore_files
       draft.draft_uploads.each do |draft_upload|
-        self.send(draft_upload.draftable_mount_column + "=", draft_upload.file_data)
+        uploader = draft_upload.draftable_mount_column
+        self.send(uploader + "=", draft_upload.file_data)
       end
     end
 
