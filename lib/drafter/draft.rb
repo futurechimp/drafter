@@ -45,15 +45,13 @@ class Draft < ActiveRecord::Base
     end
   end
 
-  private
-
-    # Find the existing draftable, or build a new one, and set it up.
-    #
-  	# @return the existing draftable object, or a new one of the proper
-  	# 	type, with attributes and files hanging off it.
-  	def build_draftable
-  		dr = draftable.nil? ? self.draftable_type.constantize.new(:draft => self) : draftable
-      dr.apply_draft
-  	end
+  # Find the existing draftable, or build a new one, and set it up.
+  #
+	# @return the existing draftable object, or a new one of the proper
+	# 	type, with attributes and files hanging off it.
+	def build_draftable
+		dr = draftable.nil? ? self.draftable_type.constantize.new(:draft => self) : draftable
+    dr.apply_draft
+	end
 
 end
