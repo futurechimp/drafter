@@ -3,7 +3,7 @@ require 'active_support/dependencies/autoload'
 require 'active_support/core_ext/module/delegation'
 require 'active_record'
 
-require File.dirname(__FILE__) + '/lib/drafter/draft_uploader'
+require File.dirname(__FILE__) + '/drafter/draft_uploader'
 
 module Drafter
   extend ActiveSupport::Concern
