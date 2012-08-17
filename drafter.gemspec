@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "drafter.gemspec",
     "lib/drafter.rb",
     "lib/drafter/creation.rb",
     "lib/drafter/draft.rb",
