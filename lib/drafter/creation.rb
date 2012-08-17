@@ -4,7 +4,7 @@ module Drafter
   module Creation
     extend ActiveSupport::Concern
 
-    # Associate a Draft object.
+    # Set up the association to the Draft object.
     included do
       has_one :draft, :as => :draftable
     end
