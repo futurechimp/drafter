@@ -1,6 +1,9 @@
-= drafter
+= Drafter
 
-Description goes here.
+This is an experimental gem designed to version ActiveRecord objects with
+attached CarrierWave uploads.
+
+Don't use it yet, it's not ready for prime time.
 
 == Contributing to drafter
 
@@ -14,6 +17,6 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2012 futurechimp. See LICENSE.txt for
+Copyright (c) 2012 Dave Hrycyszyn. See LICENSE.txt for
 further details.
 
