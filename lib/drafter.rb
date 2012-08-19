@@ -9,6 +9,7 @@ module Drafter
   extend ActiveSupport::Concern
   extend ActiveSupport::Autoload
 
+  autoload :Apply
   autoload :Creation
   autoload :Draft
   autoload :Draftable
@@ -20,6 +21,7 @@ module Drafter
   end
 
   included do
+    include Apply
   	include Creation
     include Draftable
   end
