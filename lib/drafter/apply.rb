@@ -7,8 +7,10 @@ module Drafter
 
     # Apply the draft data to the draftable, without saving it..
     def apply_draft
-      restore_attrs
-      restore_files
+      if draft
+        restore_attrs
+        restore_files
+      end
       self
     end
 
