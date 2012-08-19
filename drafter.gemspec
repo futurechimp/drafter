@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "drafter"
-  s.version = "0.1.2"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["futurechimp"]
-  s.date = "2012-08-17"
+  s.date = "2012-08-19"
   s.description = "A"
   s.email = "dave.hrycyszyn@headlondon.com"
   s.extra_rdoc_files = [
@@ -26,11 +26,13 @@ Gem::Specification.new do |s|
     "VERSION",
     "drafter.gemspec",
     "lib/drafter.rb",
+    "lib/drafter/apply.rb",
     "lib/drafter/creation.rb",
     "lib/drafter/draft.rb",
     "lib/drafter/draft_upload.rb",
     "lib/drafter/draft_uploader.rb",
     "lib/drafter/draftable.rb",
+    "test/drafter/test_apply.rb",
     "test/drafter/test_creation.rb",
     "test/drafter/test_draft.rb",
     "test/drafter/test_draft_upload.rb",
@@ -48,7 +50,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/futurechimp/drafter"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.17"
+  s.rubygems_version = "1.8.24"
   s.summary = "Simple"
 
   if s.respond_to? :specification_version then
