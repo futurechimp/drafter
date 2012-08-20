@@ -33,6 +33,13 @@ class Draft < ActiveRecord::Base
   	draftable
   end
 
+  # Reject the draft, basically destroying the draft object and leaving the
+  # draftable unchanged.
+  #
+  def reject!
+    self.destroy
+  end
+
   # Set things up so we can use dot notation to access draft data, e.g.
   # we can do either @foo.draft.data["title"] or (more neatly) we can
   # do @foo.draft.title

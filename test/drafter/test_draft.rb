@@ -101,4 +101,54 @@ class TestDraft < Minitest::Unit::TestCase
 		end
 	end
 
+	describe "Rejecting a draft" do
+		before do
+			@article = Article.new(
+				:text => "initial text",
+				:upload => file_upload)
+		end
+
+		describe "for an article which hasn't yet been saved" do
+			before do
+				@article_count = Article.count
+				@draft = @article.save_draft
+				@draft_count = Draft.count
+				@article = @draft.reject!
+			end
+
+			it "should not create an article" do
+				assert_equal(@article_count, Article.count)
+			end
+
+			it "should delete the draft" do
+				assert_equal(@draft_count - 1, Draft.count)
+			end
+		end
+
+		describe "for an article which already exists" do
+			before do
+				@article.save
+				@article_count = Article.count
+				@article.text = "some draft text"
+				@article.upload = file_upload("bar.txt")
+				@draft = @article.save_draft
+				@draft_count = Draft.count
+				@draft.reject!
+			end
+
+			it "shouldn't do anything mental, like creating a new object" do
+				assert_equal(@article_count, Article.count)
+			end
+
+			it "should properly leave the article's attributes alone" do
+				assert_equal("initial text", @article.reload.text)
+			end
+
+			it "should delete the article's draft" do
+				assert_equal(@draft_count - 1, Draft.count)
+				refute @article.reload.draft
+			end
+		end
+	end
+
 end
