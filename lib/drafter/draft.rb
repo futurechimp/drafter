@@ -50,8 +50,9 @@ class Draft < ActiveRecord::Base
 	# @return the existing draftable object, or a new one of the proper
 	# 	type, with attributes and files hanging off it.
 	def build_draftable
-		dr = draftable.nil? ? self.draftable_type.constantize.new(:draft => self) : draftable
-    dr.apply_draft
+    draftabl = draftable.nil? ? self.draftable_type.constantize.new(:draft => self) : draftable
+    draftabl.apply_draft
+    draftabl
 	end
 
 end

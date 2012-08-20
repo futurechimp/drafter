@@ -2,30 +2,47 @@ require 'helper'
 
 class TestCreation < Minitest::Unit::TestCase
 
-  describe "Applying draft info to a saved object" do
+  describe "Applying a draft" do
     before do
-      @article = Article.create!(
-        :text => "initial text",
-        :upload => file_upload)
-      @article.text = "changed"
-      @article.upload = file_upload("bar.txt")
-      @draft = @article.save_draft
-      @article.reload
-      @article.apply_draft
+		  @article = Article.new(
+			  :text => "initial text",
+			  :upload => file_upload)
     end
 
-    it "should not save the article" do
-      assert @article.changed?
-    end
+    describe "to an existing article" do
+      before do
+        @article.save!
+      end
 
-    it "should set the article text to the draft text" do
-      assert_equal('changed', @article.text)
-    end
+      describe "when there's no draft" do
+        it "should just return the article" do
+          @article.apply_draft
+          assert @article
+        end
+      end
 
-    it "should add the 'bar.txt' upload to the article's upload" do
-      assert_equal('bar.txt', @article.upload.filename)
-    end
+      describe "with a draft" do
+        before do
+          @article.text = "changed"
+          @article.upload = file_upload("bar.txt")
+          @article.save_draft
+          @article.reload
+          @article.apply_draft
+        end
 
+        it "should change the article without saving it" do
+          assert @article.changed?
+        end
+
+        it "should apply the text change" do
+          assert_equal("changed", @article.text)
+        end
+
+       it "should restore the draft upload" do
+          assert_equal("bar.txt", @article.upload.filename)
+        end
+      end
+    end
   end
 
 end
