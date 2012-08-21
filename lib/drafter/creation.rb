@@ -15,7 +15,11 @@ module Drafter
       if self.valid?
         attrs = self.attributes
         uploads = build_draft_uploads(attrs)
-        self.build_draft(:data => attrs)
+        if self.draft
+          draft.data = attrs
+        else
+          self.build_draft(:data => attrs)
+        end
         self.draft.save!
         self.draft.draft_uploads << uploads
         self.draft

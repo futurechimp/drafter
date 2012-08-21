@@ -39,6 +39,30 @@ class TestCreation < Minitest::Unit::TestCase
 				assert_equal(1, @draft.draft_uploads.length)
 				assert_equal(DraftUpload.last, @draft.draft_uploads.first)
 			end
+
+			describe "a second time" do
+				before do
+					@article_count = Article.count
+					@draft_count = Draft.count
+					@draft_upload_count = DraftUpload.count
+					@article.text = "updated text"
+					@article.upload = file_upload("bar.txt")
+					@draft = @article.save_draft
+				end
+
+				it "should not create a new Article" do
+					assert_equal(@article_count, Article.count)
+				end
+
+				it "should update the Draft in place" do
+					assert_equal(@draft_count, Draft.count)
+				end
+
+				it "should update the DraftUpload in place" do
+					assert_equal(@draft_upload_count, DraftUpload.count)
+				end
+
+			end
 		end
 
 		describe "an existing draftable article" do
