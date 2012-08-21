@@ -78,19 +78,19 @@ class TestDraft < Minitest::Unit::TestCase
 				@article.upload = file_upload("bar.txt")
 				@draft = @article.save_draft
 				@draft_count = Draft.count
-				@draft.approve!
+				@draft.reload.approve!
 			end
 
 			it "shouldn't do anything mental, like creating a new object" do
 				assert_equal(@article_count, Article.count)
 			end
 
-			it "should properly populate all the attributes" do
-				assert_equal("some draft text", @article.text)
+			it "should properly save all the attributes" do
+				assert_equal("some draft text", @article.reload.text)
 			end
 
-			it "should populate all the file uploads" do
-				assert_equal("bar.txt", @article.upload.filename)
+			it "should save all the file uploads" do
+				assert_equal("bar.txt", @article.reload.upload.filename)
 				assert_equal("bar bar bar", File.open(@article.upload.path).read)
 			end
 
