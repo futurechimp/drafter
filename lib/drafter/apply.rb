@@ -21,7 +21,7 @@ module Drafter
     # @return [Draftable] the draftable object populated with the draft attrs.
     def restore_attrs
       draftable_columns.each do |key|
-        self.raw_write_attribute key, self.draft.data[key]
+        self.send "#{key}=", self.draft.data[key]
       end
       self
     end
