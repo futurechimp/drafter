@@ -14,14 +14,14 @@ module Drafter
     def save_draft
       if self.valid?
         attrs = self.attributes
-        uploads = build_draft_uploads(attrs)
         if self.draft
           draft.data = attrs
         else
           self.build_draft(:data => attrs)
         end
         self.draft.save!
-        self.draft.draft_uploads << uploads
+        uploads = build_draft_uploads(attrs)
+        # self.draft.draft_uploads << uploads
         self.draft
       end
     end
@@ -37,7 +37,7 @@ module Drafter
         draft_uploads = []
         attrs.keys.each do |key|
           if self.send(key).is_a?(CarrierWave::Uploader::Base)
-            draft_uploads << build_draft_upload(key)
+            self.draft.draft_uploads << build_draft_upload(key)
           end
         end
         draft_uploads
@@ -53,8 +53,11 @@ module Drafter
       def build_draft_upload(key)
         cw_uploader = self.send(key)
         file = File.new(cw_uploader.file.path) if cw_uploader.file
-        draft_upload = DraftUpload.new(
-          :file_data => file, :draftable_mount_column => key)
+        existing_upload = self.draft.draft_uploads.where(:draftable_mount_column => key).first
+        draft_upload = existing_upload.nil? ? DraftUpload.new : existing_upload
+        draft_upload.file_data = file
+        draft_upload.draftable_mount_column = key
+        draft_upload
       end
 
   end
