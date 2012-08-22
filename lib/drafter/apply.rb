@@ -1,7 +1,6 @@
 module Drafter
 
-	# Takes care of associating and creating Draft objects for the draftable
-  # class.
+	# Applies draft data to draftable objects.
   module Apply
     extend ActiveSupport::Concern
 
