@@ -19,9 +19,10 @@ module Drafter
         else
           self.build_draft(:data => attrs)
         end
+        # https://github.com/rails/rails/issues/617
+        draft.draftable_type = self.class.to_s
         self.draft.save!
         uploads = build_draft_uploads(attrs)
-        # self.draft.draft_uploads << uploads
         self.draft
       end
     end
