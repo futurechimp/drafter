@@ -3,10 +3,13 @@ module Drafter
   module Draftable
     extend ActiveSupport::Concern
 
-    # Overrides the +draftable+ method to first define the +draftable?+ class method before
-    # deferring to the original +draftable+.
+    # Overrides the +draftable+ method to define the +draftable?+ class method.
     module ClassMethods
-      def draftable(*args)        
+      def draftable(options)
+
+        cattr_accessor :draftable_draft_title
+        self.draftable_draft_title = options[:draft_title]
+
         class << self
           def draftable?
             true
