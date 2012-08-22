@@ -5,7 +5,7 @@ module Drafter
 
     # Overrides the +draftable+ method to define the +draftable?+ class method.
     module ClassMethods
-      def draftable(options)
+      def draftable(options={})
 
         cattr_accessor :draftable_draft_title
         self.draftable_draft_title = options[:draft_title]
