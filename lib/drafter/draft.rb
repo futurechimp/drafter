@@ -58,6 +58,7 @@ class Draft < ActiveRecord::Base
 	# 	type, with attributes and files hanging off it.
 	def build_draftable
     draftabl = draftable.nil? ? self.draftable_type.constantize.new(:draft => self) : draftable
+    draftabl.draft = self # this should absolutely *not* be necessary, there's an STI bug in AR.
     draftabl.apply_draft
     draftabl
 	end
