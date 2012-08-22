@@ -8,6 +8,11 @@ ActiveRecord::Schema.define do
     t.timestamps
   end
 
+  create_table :posts, :force => true do |t|
+    t.string :text
+    t.timestamps
+  end
+
   create_table :drafts, :force => true do |t|
   	t.text :data
   	t.references :draftable, :polymorphic => true

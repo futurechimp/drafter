@@ -40,8 +40,8 @@ class TestCreation < Minitest::Unit::TestCase
 				assert_equal(DraftUpload.last, @draft.draft_uploads.first)
 			end
 
-			it "should merge in a draftable_draft_title key and value, with the proper field content" do
-				assert_equal("original text", @draft.draftable_draft_title)
+			it "should merge in a draft_title key and value, with the proper field content" do
+				assert_equal("original text", @draft.draft_title)
 			end
 
 			describe "a second time" do

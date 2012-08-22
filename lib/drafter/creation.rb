@@ -14,7 +14,9 @@ module Drafter
     def save_draft
       if self.valid?
         attrs = self.attributes
-        attrs.merge!("draftable_draft_title" => attrs[self.draftable_draft_title.to_s])
+        if self.draftable_draft_title
+          attrs.merge!("draft_title" => attrs[self.draftable_draft_title.to_s])
+        end
         if self.draft
           draft.data = attrs
         else
@@ -38,7 +40,7 @@ module Drafter
       def build_draft_uploads(attrs)
         draft_uploads = []
         attrs.keys.each do |key|
-          if self.send(key).is_a?(CarrierWave::Uploader::Base)
+          if self.respond_to?(key) && self.send(key).is_a?(CarrierWave::Uploader::Base)
             self.draft.draft_uploads << build_draft_upload(key)
           end
         end

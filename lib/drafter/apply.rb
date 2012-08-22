@@ -20,7 +20,7 @@ module Drafter
     # @return [Draftable] the draftable object populated with the draft attrs.
     def restore_attrs
       draftable_columns.each do |key|
-        self.send "#{key}=", self.draft.data[key]
+        self.send "#{key}=", self.draft.data[key] if self.respond_to?(key)
       end
       self
     end

@@ -11,6 +11,12 @@ class Article < ActiveRecord::Base
 
 end
 
+class Post < ActiveRecord::Base
+
+  draftable
+
+end
+
 
 # A non-draftable comment class
 class Comment < ActiveRecord::Base
