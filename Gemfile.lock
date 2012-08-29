@@ -42,6 +42,7 @@ GEM
     debugger-linecache (1.1.1)
       debugger-ruby_core_source (>= 1.1.1)
     debugger-ruby_core_source (1.1.2)
+    diffy (2.0.8)
     erubis (2.7.0)
     git (1.2.5)
     hike (1.2.1)
@@ -119,6 +120,7 @@ DEPENDENCIES
   bundler (~> 1.0.0)
   carrierwave
   debugger
+  diffy
   jeweler (~> 1.6.4)
   minitest
   minitest-rails-shoulda

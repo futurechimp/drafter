@@ -2,6 +2,7 @@ require 'active_support/concern'
 require 'active_support/dependencies/autoload'
 require 'active_support/core_ext/module/delegation'
 require 'active_record'
+require 'diffy'
 
 require File.dirname(__FILE__) + '/drafter/draft_uploader'
 
@@ -11,6 +12,7 @@ module Drafter
 
   autoload :Apply
   autoload :Creation
+  autoload :Diffing
   autoload :Draft
   autoload :Draftable
   autoload :DraftUpload
@@ -23,6 +25,7 @@ module Drafter
   included do
     include Apply
   	include Creation
+    include Diffing
     include Draftable
   end
 

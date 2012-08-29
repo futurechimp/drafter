@@ -51,8 +51,8 @@ end
 
 MiniTest::Unit.autorun
 
-Turn.config do |c|
- c.format  = :outline
- c.trace   = false
- c.natural = true
-end
+# Turn.config do |c|
+#  c.format  = :outline
+#  c.trace   = false
+#  c.natural = true
+# end
