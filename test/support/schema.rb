@@ -29,4 +29,8 @@ ActiveRecord::Schema.define do
     t.string :file_data
   end
 
+  create_table :comments, :force => true do |t|
+    t.string :text
+  end
+
 end
