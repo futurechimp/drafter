@@ -14,9 +14,6 @@ module Drafter
     def save_draft
       if self.valid?
         attrs = self.attributes
-        if self.draftable_draft_title
-          attrs.merge!("draft_title" => attrs[self.draftable_draft_title.to_s])
-        end
         if self.draft
           draft.data = attrs
         else
