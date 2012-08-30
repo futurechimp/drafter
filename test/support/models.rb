@@ -5,7 +5,7 @@ class Article < ActiveRecord::Base
 
   validates_presence_of :text
 
-	draftable :draft_title => :text
+	draftable
 
 	mount_uploader :upload, Uploader
 
