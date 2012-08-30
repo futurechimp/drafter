@@ -20,6 +20,8 @@ module Subdrafts
       end
     end
 
+    # TODO: this is too simple, we'll need to recursively save draft uploads again here.
+    #
     def create_subdraft_for(object, relation)
       subdraft = Draft.new(:data => object.attributes, :parent_association_name => relation)
       self.draft.subdrafts << subdraft
