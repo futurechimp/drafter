@@ -62,28 +62,6 @@ class TestCreation < Minitest::Unit::TestCase
 					assert_equal(@draft_upload_count, DraftUpload.count)
 				end
 			end
-
-			describe "with 1 attached comment" do
-				before do
-					@comment = Comment.new(:text => "What a great article!")
-					@draft_count = Draft.count
-					@comment_count = Comment.count
-					@article.comments << @comment
-					@article.save_draft
-				end
-
-				it "should not create a new comment" do
-					assert_equal(@comment_count, Comment.count)
-				end
-
-				it "should create a new draft" do
-					assert_equal(@draft_count + 1, Draft.count)
-				end
-			end
-
-			# describe "with 2 attached comments" do
-
-			# end
 		end
 
 		describe "an existing draftable article" do

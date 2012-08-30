@@ -16,6 +16,7 @@ module Drafter
   autoload :Draft
   autoload :Draftable
   autoload :DraftUpload
+  autoload :Subdrafts
 
   class << self
     delegate :config, :configure, :to => Draft
@@ -27,11 +28,18 @@ module Drafter
   end
 
   module ClassMethods
+
     def draftable(options={})
       include Apply
       include Creation
       include Diffing
       include Draftable
+    end
+
+    def approves_drafts_for(*associations)
+      cattr_accessor :approves_drafts_for
+      self.approves_drafts_for = associations
+      include Subdrafts
     end
   end
 

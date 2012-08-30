@@ -15,6 +15,7 @@ module Drafter
       if self.valid?
         serialize_attributes_to_draft
         unfuck_sti
+        create_subdrafts
         self.draft.save!
         build_draft_uploads
         self.draft

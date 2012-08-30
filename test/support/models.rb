@@ -2,7 +2,8 @@
 
 # A draftable article class
 class Article < ActiveRecord::Base
-	draftable :approves => :comments
+	draftable
+  approves_drafts_for :comments
 
   has_many :comments
   validates_presence_of :text

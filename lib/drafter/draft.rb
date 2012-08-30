@@ -17,6 +17,15 @@ class Draft < ActiveRecord::Base
   has_many :draft_uploads
 	belongs_to :draftable, :polymorphic => true
 
+  # Drafts are nestable, e.g. an Article's draft can have multiple
+  # Comment drafts attached, and the whole thing can be approved at once.
+  #
+  belongs_to :parent, :class_name => "Draft"
+
+  # Looked at from the other end, the parent draft should be able to address
+  # its subdrafts.
+  #
+  has_many :subdrafts, :class_name => "Draft", :foreign_key => "parent_id"
 
 	# Store serialized data for the associated draftable as a Hash of
   # attributes.

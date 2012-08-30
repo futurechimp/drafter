@@ -11,6 +11,7 @@ class TestDraft < Minitest::Unit::TestCase
 		describe "associations" do
 			it { must belong_to(:draftable) }
 			it { must have_many(:draft_uploads) }
+			# it { must have_many(:subdrafts).class_name("Draft") } TODO: fix foreign_key problem.
 		end
 	end
 
