@@ -14,29 +14,40 @@ module Drafter
     def save_draft
       if self.valid?
         attrs = self.attributes
-        if self.draft
-          draft.data = attrs
-        else
-          self.build_draft(:data => attrs)
-        end
-        # https://github.com/rails/rails/issues/617
-        draft.draftable_type = self.class.to_s
-        self.draft.save!
-        uploads = build_draft_uploads(attrs)
+        serialize_attributes_to_draft
+        unfuck_sti
+        build_draft_uploads
         self.draft
       end
     end
 
     private
 
+      # https://github.com/rails/rails/issues/617
+      def unfuck_sti
+        draft.draftable_type = self.class.to_s
+        self.draft.save!
+      end
+
+      # Set up the draft object, setting its :data attribute to the serialized
+      # hash of this object's attributes.
+      #
+      def serialize_attributes_to_draft
+        if self.draft
+          draft.data = self.attributes
+        else
+          self.build_draft(:data => self.attributes)
+        end
+      end
+
       # Loop through and create DraftUpload objects for any Carrierwave
       # uploaders mounted on this draftable object.
       #
       # @param [Hash] attrs the attributes to loop through
       # @return [Array<DraftUpload>] an array of unsaved DraftUpload objects.
-      def build_draft_uploads(attrs)
+      def build_draft_uploads
         draft_uploads = []
-        attrs.keys.each do |key|
+        self.attributes.keys.each do |key|
           if self.respond_to?(key) && self.send(key).is_a?(CarrierWave::Uploader::Base)
             self.draft.draft_uploads << build_draft_upload(key)
           end

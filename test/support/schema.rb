@@ -14,6 +14,9 @@ ActiveRecord::Schema.define do
   end
 
   create_table :drafts, :force => true do |t|
+    t.references :parent
+    t.integer :parent_id
+    t.string  :parent_association_name
   	t.text :data
   	t.references :draftable, :polymorphic => true
   end
