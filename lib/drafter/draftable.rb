@@ -6,6 +6,7 @@ module Drafter
     # Overrides the +draftable+ method to define the +draftable?+ class method.
     module ClassMethods
       def draftable(options={})
+        super(options)
 
         class << self
           def draftable?

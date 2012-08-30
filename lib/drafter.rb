@@ -23,10 +23,16 @@ module Drafter
   end
 
   included do
-    include Apply
-  	include Creation
-    include Diffing
     include Draftable
+  end
+
+  module ClassMethods
+    def draftable(options={})
+      include Apply
+      include Creation
+      include Diffing
+      include Draftable
+    end
   end
 
 end
