@@ -2,17 +2,22 @@
 
 # A draftable article class
 class Article < ActiveRecord::Base
-  validates_presence_of :text
 	draftable
+
+  has_many :comments
+  validates_presence_of :text
 	mount_uploader :upload, Uploader
 end
 
-# A simpler Post class
-class Post < ActiveRecord::Base
+# A draftable comment class which belongs to Article.
+#
+# We can use this to test out associations.
+class Comment < ActiveRecord::Base
   draftable
+
+  belongs_to :article
 end
 
-
-# A non-draftable comment class
-class Comment < ActiveRecord::Base
+# A non-draftable class
+class User < ActiveRecord::Base
 end

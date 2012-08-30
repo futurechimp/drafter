@@ -11,14 +11,6 @@ class TestDraftable < MiniTest::Unit::TestCase
 			end
 		end
 
-		describe "without a :draft_title option" do
-			describe "instantiating" do
-				it "works" do
-					assert Post.new
-				end
-			end
-		end
-
 		it "should know it's draftable" do
 			assert Article.draftable?
 		end
@@ -26,7 +18,7 @@ class TestDraftable < MiniTest::Unit::TestCase
 
 	describe "A non-draftable ActiveRecord class" do
 		it "should know it's not draftable" do
-			refute Comment.draftable?
+			refute User.draftable?
 		end
 	end
 

@@ -8,8 +8,8 @@ ActiveRecord::Schema.define do
     t.timestamps
   end
 
-  create_table :posts, :force => true do |t|
-    t.string :text
+  create_table :users, :force => true do |t|
+    t.string :email
     t.timestamps
   end
 
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define do
   end
 
   create_table :comments, :force => true do |t|
+    t.integer :article_id
     t.string :text
   end
 

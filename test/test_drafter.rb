@@ -10,7 +10,7 @@ class TestDrafter < MiniTest::Unit::TestCase
 
   describe "A non-draftable class" do
     it "does not respond to :save_draft" do
-      refute Comment.new.respond_to?(:save_draft)
+      refute User.new.respond_to?(:save_draft)
     end
   end
 
