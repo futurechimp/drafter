@@ -4,7 +4,7 @@ module Drafter
   module Apply
     extend ActiveSupport::Concern
 
-    # Apply the draft data to the draftable, without saving it..
+    # Apply the draft data to the draftable, without saving it.
     def apply_draft
       if draft
         restore_attrs
