@@ -16,6 +16,7 @@ module Drafter
         attrs = self.attributes
         serialize_attributes_to_draft
         unfuck_sti
+        self.draft.save!
         build_draft_uploads
         self.draft
       end
@@ -26,7 +27,6 @@ module Drafter
       # https://github.com/rails/rails/issues/617
       def unfuck_sti
         draft.draftable_type = self.class.to_s
-        self.draft.save!
       end
 
       # Set up the draft object, setting its :data attribute to the serialized
