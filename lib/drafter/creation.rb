@@ -13,7 +13,6 @@ module Drafter
     # Build and save the draft when told to do so.
     def save_draft
       if self.valid?
-        attrs = self.attributes
         serialize_attributes_to_draft
         unfuck_sti
         self.draft.save!
