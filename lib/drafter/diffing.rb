@@ -9,7 +9,7 @@ module Diffing
   #   [Diffy::Diff].
   def differences(attr, options={:format => :html})
     if self.draft
-      Diffy::Diff.new(self.send(attr), self.draft(attr)).to_s(options[:format])
+      Diffy::Diff.new(self.send(attr), self.draft.send(attr)).to_s(options[:format])
     end
   end
 

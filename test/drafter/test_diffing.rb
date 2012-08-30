@@ -26,9 +26,13 @@ class TestDrafter < MiniTest::Unit::TestCase
         end
 
         describe "for a string attribute" do
+          it "should not nullify the @article" do
+            assert @article
+          end
           # return an html diff string for "foo" and "superfoo"
           it "should return an HTML diff between the draft and live object" do
-            assert (@article.reload.differences(:text)).include?(%Q(<li class=\"del\"><del>f<strong>oo</strong></del></li>))
+
+            assert (@article.reload.differences(:text)).include?(%Q(<li class=\"ins\"><ins><strong>super</strong>foo</ins></li>))
           end
         end
       end
