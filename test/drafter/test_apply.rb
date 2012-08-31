@@ -63,8 +63,32 @@ class TestCreation < Minitest::Unit::TestCase
               assert_equal(1, @reloaded.comments.length)
             end
           end
-
         end
+
+        describe "which has two subdrafts attached" do
+          before do
+            @article.comments.build(:text => "I'm a comment", :upload => file_upload)
+            @article.comments.build(:text => "I'm another comment", :upload => file_upload)
+            @draft_count = Draft.count
+            @article.save_draft
+            @reloaded = Article.find(@article.to_param)
+          end
+
+          it "should not yet have any comments attached" do
+            assert_equal(0, @reloaded.comments.length)
+          end
+
+          describe "applying the draft" do
+            before do
+              @reloaded.apply_draft
+            end
+
+            it "should be able to restore the comment" do
+              assert_equal(2, @reloaded.comments.length)
+            end
+          end
+        end
+
       end
     end
   end
