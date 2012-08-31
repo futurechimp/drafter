@@ -9,6 +9,7 @@ module Drafter
       if draft
         restore_attrs
         restore_files
+        restore_subdrafts
       end
       self
     end
@@ -33,6 +34,12 @@ module Drafter
       draft.draft_uploads.each do |draft_upload|
         uploader = draft_upload.draftable_mount_column
         self.send(uploader + "=", draft_upload.file_data)
+      end
+    end
+
+    def restore_subdrafts
+      draft.subdrafts.each_with_index do |subdraft, index|
+        self.send(subdraft.parent_association_name)[index]=subdraft.build_draftable
       end
     end
 
