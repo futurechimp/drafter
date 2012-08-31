@@ -34,6 +34,7 @@ ActiveRecord::Schema.define do
 
   create_table :comments, :force => true do |t|
     t.integer :article_id
+    t.string  :upload
     t.string :text
   end
 
