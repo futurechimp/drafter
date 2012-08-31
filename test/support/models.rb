@@ -17,6 +17,8 @@ class Comment < ActiveRecord::Base
   draftable
 
   belongs_to :article
+  mount_uploader :upload, Uploader
+
 end
 
 # A non-draftable class
