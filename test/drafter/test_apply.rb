@@ -68,7 +68,7 @@ class TestCreation < Minitest::Unit::TestCase
         describe "which has two subdrafts attached" do
           before do
             @article.comments.build(:text => "I'm a comment", :upload => file_upload)
-            @article.comments.build(:text => "I'm another comment", :upload => file_upload)
+            @article.comments.build(:text => "I'm another comment", :upload => file_upload("bar.txt"))
             @draft_count = Draft.count
             @article.save_draft
             @reloaded = Article.find(@article.to_param)
@@ -85,6 +85,14 @@ class TestCreation < Minitest::Unit::TestCase
 
             it "should be able to restore the comment" do
               assert_equal(2, @reloaded.comments.length)
+            end
+
+            it "should properly restore the first file, foo.txt" do
+              assert_equal(file_upload.read, File.new(@reloaded.comments.first.upload.path).read)
+            end
+
+            it "should properly restore the second file, bar.txt" do
+              assert_equal(file_upload("bar.txt").read, File.new(@reloaded.comments.last.upload.path).read)
             end
           end
         end
