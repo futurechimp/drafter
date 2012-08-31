@@ -11,18 +11,26 @@ module Drafter
     end
 
     # Build and save the draft when told to do so.
-    def save_draft
-      if self.valid?
-        serialize_attributes_to_draft
-        unfuck_sti
+    def save_draft(parent_draft=nil, parent_association_name=nil)
+      if valid?
+        do_create_draft(parent_draft, parent_association_name)
         create_subdrafts
-        self.draft.save!
-        build_draft_uploads
-        self.draft
+        draft
       end
     end
 
     private
+
+      def do_create_draft(parent_draft=nil, parent_association_name=nil)
+        serialize_attributes_to_draft
+        if parent_draft
+          attach_to_parent_draft(parent_draft, parent_association_name)
+        end
+        unfuck_sti
+        draft.save!
+        build_draft_uploads
+        draft
+      end
 
       # https://github.com/rails/rails/issues/617
       def unfuck_sti
@@ -71,6 +79,12 @@ module Drafter
         draft_upload.draftable_mount_column = key
         draft_upload
       end
+
+      def attach_to_parent_draft(parent_draft, relation)
+        draft.parent = parent_draft
+        draft.parent_association_name = relation
+      end
+
 
   end
 end
