@@ -79,7 +79,11 @@ module Drafter
       end
 
       # Attach the draft object to a parent draft object, if there is one.
+      # The parent_draft may be for an Article which has_many :comments,
+      # as an example.
       #
+      # @param [Draft] parent_draft the draft that this draft is associated with.
+      # @param [Symbol] relation the name of the has_many (or has_one) association.
       def attach_to_parent_draft(parent_draft, relation)
         if parent_draft && relation
           draft.parent = parent_draft
