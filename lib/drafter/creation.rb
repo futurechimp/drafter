@@ -23,9 +23,7 @@ module Drafter
 
       def do_create_draft(parent_draft=nil, parent_association_name=nil)
         serialize_attributes_to_draft
-        if parent_draft
-          attach_to_parent_draft(parent_draft, parent_association_name)
-        end
+        attach_to_parent_draft(parent_draft, parent_association_name)
         unfuck_sti
         draft.save!
         build_draft_uploads
@@ -80,11 +78,14 @@ module Drafter
         draft_upload
       end
 
+      # Attach the draft object to a parent draft object, if there is one.
+      #
       def attach_to_parent_draft(parent_draft, relation)
-        draft.parent = parent_draft
-        draft.parent_association_name = relation
+        if parent_draft && relation
+          draft.parent = parent_draft
+          draft.parent_association_name = relation
+        end
       end
-
 
   end
 end
