@@ -8,9 +8,9 @@ class TestSubdrafts < Minitest::Unit::TestCase
         Draft.delete_all
         Comment.delete_all
         Article.delete_all
-        @comment = Comment.new(:text => "What a great article!", :upload => file_upload)
         @comment_count = Comment.count
-        @article = Article.new(:text => "I'm an article.", :comments => [@comment])
+        @article = Article.new(:text => "I'm an article.")
+        @article.comments.build(:text => "What a great article!", :upload => file_upload)
         @article_count = Article.count
         @draft_count = Draft.count
         @draft_upload_count = DraftUpload.count
