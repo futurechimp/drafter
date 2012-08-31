@@ -34,12 +34,12 @@ module Drafter
       include Creation
       include Diffing
       include Draftable
+      include Subdrafts
     end
 
     def approves_drafts_for(*associations)
       cattr_accessor :approves_drafts_for
       self.approves_drafts_for = associations
-      include Subdrafts
     end
   end
 
