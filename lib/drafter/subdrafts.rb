@@ -15,16 +15,9 @@ module Subdrafts
       objects = self.send(relation)
       unless objects.empty?
         objects.each do |object|
-          create_subdraft_for(object, relation)
+          object.save_draft(self.draft, relation)
         end
       end
-    end
-
-    # TODO: this is too simple, we'll need to recursively save draft uploads again here.
-    #
-    def create_subdraft_for(object, relation)
-      subdraft = Draft.new(:data => object.attributes, :parent_association_name => relation)
-      self.draft.subdrafts << subdraft
     end
 
 end
