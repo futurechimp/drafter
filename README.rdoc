@@ -3,7 +3,14 @@
 This is an experimental gem designed to version ActiveRecord objects with
 attached CarrierWave uploads.
 
-Don't use it yet, it's not ready for prime time.
+It's still in development, so don't use it unless you're ready for that.
+
+So far, it can correctly handle the following cases:
+
+* drafts for new records
+* drafts for saved records
+* drafts for new and saved records, with attached CarrierWave uploads
+* drafts for new and saved records, properly saving drafts for sub-objects in has_many associations, with or without attached CarrierWave uploads.
 
 == Contributing to drafter
 
