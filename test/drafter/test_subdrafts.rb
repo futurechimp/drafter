@@ -81,7 +81,7 @@ class TestSubdrafts < Minitest::Unit::TestCase
       before do
         @like_count = Like.count
         @article.save_draft
-        @like = Like.new(:likeable => @article)
+        @like = Like.new(:likeable => @article) # hack for polymorph
         @draft = @like.save_draft(@article.draft, :likes)
         @article_draft = Draft.first
         @like_draft = Draft.last
@@ -128,7 +128,7 @@ class TestSubdrafts < Minitest::Unit::TestCase
       before do
         @really_like_count = ReallyLike.count
         @article.save_draft
-        @really_like = ReallyLike.new(:likeable => @article)
+        @really_like = ReallyLike.new(:likeable => @article) # hack for polymorph
         @draft = @really_like.save_draft(@article.draft, :likes)
         @article_draft = Draft.first
         @really_like_draft = Draft.last
