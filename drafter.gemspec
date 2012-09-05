@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "drafter"
-  s.version = "0.2.8"
+  s.version = "0.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["futurechimp"]
-  s.date = "2012-08-29"
+  s.date = "2012-09-05"
   s.description = "A"
   s.email = "dave.hrycyszyn@headlondon.com"
   s.extra_rdoc_files = [
@@ -33,12 +33,16 @@ Gem::Specification.new do |s|
     "lib/drafter/draft_upload.rb",
     "lib/drafter/draft_uploader.rb",
     "lib/drafter/draftable.rb",
+    "lib/drafter/id_hash.rb",
+    "lib/drafter/subdrafts.rb",
     "test/drafter/test_apply.rb",
     "test/drafter/test_creation.rb",
     "test/drafter/test_diffing.rb",
     "test/drafter/test_draft.rb",
     "test/drafter/test_draft_upload.rb",
     "test/drafter/test_draftable.rb",
+    "test/drafter/test_id_hash.rb",
+    "test/drafter/test_subdrafts.rb",
     "test/fixtures/bar.txt",
     "test/fixtures/foo.txt",
     "test/helper.rb",
@@ -62,6 +66,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<activerecord>, [">= 0"])
       s.add_runtime_dependency(%q<diffy>, [">= 0"])
       s.add_development_dependency(%q<sqlite3>, [">= 0"])
+      s.add_development_dependency(%q<database_cleaner>, [">= 0"])
       s.add_development_dependency(%q<debugger>, [">= 0"])
       s.add_development_dependency(%q<minitest>, [">= 0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
@@ -74,6 +79,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<activerecord>, [">= 0"])
       s.add_dependency(%q<diffy>, [">= 0"])
       s.add_dependency(%q<sqlite3>, [">= 0"])
+      s.add_dependency(%q<database_cleaner>, [">= 0"])
       s.add_dependency(%q<debugger>, [">= 0"])
       s.add_dependency(%q<minitest>, [">= 0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
@@ -87,6 +93,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<activerecord>, [">= 0"])
     s.add_dependency(%q<diffy>, [">= 0"])
     s.add_dependency(%q<sqlite3>, [">= 0"])
+    s.add_dependency(%q<database_cleaner>, [">= 0"])
     s.add_dependency(%q<debugger>, [">= 0"])
     s.add_dependency(%q<minitest>, [">= 0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
