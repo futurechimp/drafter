@@ -16,7 +16,7 @@ module Drafter
         do_create_draft(parent_draft, parent_association_name)
         create_subdrafts
       end
-      return self.draft
+      return self.draft.reload if self.draft
     end
 
     private
@@ -27,7 +27,6 @@ module Drafter
         unfuck_sti
         draft.save!
         build_draft_uploads
-        draft.save!
         draft
       end
 
@@ -91,19 +90,6 @@ module Drafter
           draft.parent_association_name = relation
         end
       end
-
-
-
-      # def create_superdrafts
-      #   belongs_to_associations = self.class.reflect_on_all_associations(:belongs_to)
-      #   if !belongs_to_associations.empty?
-      #     belongs_to_associations.each do |assoc|
-      #       if self.send(assoc.name)
-      #         puts "The #{assoc.name} I belong to is '#{self.send(assoc.name).text}'"
-      #       end
-      #     end
-      #   end
-      # end
 
   end
 end

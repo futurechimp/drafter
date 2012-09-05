@@ -16,46 +16,46 @@ class TestSubdrafts < Minitest::Unit::TestCase
         @comment_draft = Draft.last
       end
 
-      # it "should not create a new comment" do
-      #   assert_equal(@comment_count, Comment.count)
-      # end
+      it "should not create a new comment" do
+        assert_equal(@comment_count, Comment.count)
+      end
 
-      # it "should not create a new article" do
-      #   assert_equal(@article_count, Article.count)
-      # end
+      it "should not create a new article" do
+        assert_equal(@article_count, Article.count)
+      end
 
-      # it "should save drafts for the article and comment" do
-      #   assert_equal(@draft_count + 2, Draft.count)
-      # end
+      it "should save drafts for the article and comment" do
+        assert_equal(@draft_count + 2, Draft.count)
+      end
 
-      # it "should serialize the comment draft fields properly" do
-      #   assert @comment_draft.build_draftable.is_a? Comment
-      #   assert_equal("What a great article!", @comment_draft.text)
-      # end
+      it "should serialize the comment draft fields properly" do
+        assert @comment_draft.build_draftable.is_a? Comment
+        assert_equal("What a great article!", @comment_draft.text)
+      end
 
-      # it "should save a draft upload for the comment's uploaded file" do
-      #   assert_equal(@draft_upload_count + 1, DraftUpload.count)
-      #   assert_equal(file_upload.size, File.new(@comment_draft.build_draftable.upload.path).size)
-      # end
+      it "should save a draft upload for the comment's uploaded file" do
+        assert_equal(@draft_upload_count + 1, DraftUpload.count)
+        assert_equal(file_upload.size, File.new(@comment_draft.build_draftable.upload.path).size)
+      end
 
-      # it "should correctly associate the comment draft with its parent" do
-      #   assert_equal(@article_draft, @comment_draft.parent)
-      # end
+      it "should correctly associate the comment draft with its parent" do
+        assert_equal(@article_draft, @comment_draft.parent)
+      end
 
       describe "after calling build_draftable on a draft" do
         before do
           @article = @draft.build_draftable
         end
 
-        # it "should still have 1 comment on it" do
-        #   assert_equal(1, @article.comments.length)
-        # end
+        it "should still have 1 comment on it" do
+          assert_equal(1, @article.comments.length)
+        end
 
-        # describe "restoring the draft" do
-        #   it "should work" do
-        #     assert (@article = @draft.build_draftable).is_a? Article
-        #   end
-        # end
+        describe "restoring the draft" do
+          it "should work" do
+            assert (@article = @draft.build_draftable).is_a? Article
+          end
+        end
 
         describe "and adding another comment" do
           before do
@@ -68,7 +68,7 @@ class TestSubdrafts < Minitest::Unit::TestCase
           it "should have 3 comments" do
             assert_equal(3, @article.comments.length)
             assert_equal("SuperComment", @article.comments.second.text)
-            assert_equal("AnotherComment", @article.comments.second.text)
+            assert_equal("AnotherComment", @article.comments.third.text)
           end
         end
       end
