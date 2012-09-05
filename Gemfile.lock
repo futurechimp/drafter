@@ -35,6 +35,7 @@ GEM
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
     columnize (0.3.6)
+    database_cleaner (0.7.1)
     debugger (1.1.1)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.1)
@@ -119,6 +120,7 @@ DEPENDENCIES
   activerecord
   bundler (~> 1.0.0)
   carrierwave
+  database_cleaner
   debugger
   diffy
   jeweler (~> 1.6.4)

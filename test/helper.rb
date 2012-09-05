@@ -9,6 +9,7 @@ rescue Bundler::BundlerError => e
 end
 require 'minitest/spec'
 require 'debugger'
+require 'database_cleaner'
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
@@ -32,7 +33,17 @@ load File.dirname(__FILE__) + '/support/uploader.rb'
 load File.dirname(__FILE__) + '/support/models.rb'
 load File.dirname(__FILE__) + '/support/data.rb'
 
-class MiniTest::Unit::TestCase
+DatabaseCleaner.strategy = :transaction
+
+class MiniTest::Spec
+
+  before :each do
+    DatabaseCleaner.start
+  end
+
+  after :each do
+    DatabaseCleaner.clean
+  end
 
   # Pull in shoulda matchers for minitest.
   #

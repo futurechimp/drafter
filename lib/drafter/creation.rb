@@ -15,8 +15,8 @@ module Drafter
       if valid?
         do_create_draft(parent_draft, parent_association_name)
         create_subdrafts
-        draft
       end
+      return self.draft
     end
 
     private
@@ -27,6 +27,7 @@ module Drafter
         unfuck_sti
         draft.save!
         build_draft_uploads
+        draft.save!
         draft
       end
 
@@ -52,13 +53,13 @@ module Drafter
       # @param [Hash] attrs the attributes to loop through
       # @return [Array<DraftUpload>] an array of unsaved DraftUpload objects.
       def build_draft_uploads
-        draft_uploads = []
         self.attributes.keys.each do |key|
-          if self.respond_to?(key) && self.send(key).is_a?(CarrierWave::Uploader::Base)
+          if (self.respond_to?(key) &&
+              self.send(key).is_a?(CarrierWave::Uploader::Base) &&
+              self.send(key).file)
             self.draft.draft_uploads << build_draft_upload(key)
           end
         end
-        draft_uploads
       end
 
       # Get a reference to the CarrierWave uploader mounted on the
@@ -90,6 +91,19 @@ module Drafter
           draft.parent_association_name = relation
         end
       end
+
+
+
+      # def create_superdrafts
+      #   belongs_to_associations = self.class.reflect_on_all_associations(:belongs_to)
+      #   if !belongs_to_associations.empty?
+      #     belongs_to_associations.each do |assoc|
+      #       if self.send(assoc.name)
+      #         puts "The #{assoc.name} I belong to is '#{self.send(assoc.name).text}'"
+      #       end
+      #     end
+      #   end
+      # end
 
   end
 end

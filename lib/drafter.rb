@@ -16,6 +16,7 @@ module Drafter
   autoload :Draft
   autoload :Draftable
   autoload :DraftUpload
+  autoload :IdHash
   autoload :Subdrafts
 
   class << self
@@ -34,6 +35,7 @@ module Drafter
       include Creation
       include Diffing
       include Draftable
+      include IdHash
       include Subdrafts
     end
 

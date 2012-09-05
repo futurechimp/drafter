@@ -9,6 +9,7 @@ gem "diffy"
 # Include everything needed to run rake, tests, features, etc.
 group :development do
   gem "sqlite3"
+  gem "database_cleaner"
   gem "debugger"
 	gem "minitest", ">= 0"
 	gem "bundler", "~> 1.0.0"

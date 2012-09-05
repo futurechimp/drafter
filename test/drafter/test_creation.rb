@@ -158,6 +158,47 @@ class TestCreation < Minitest::Unit::TestCase
 				assert_equal(1, @article.errors.count)
 			end
 		end
+
+		# We may need to save this for later.
+		#
+		# If we could get these tests working, we could call save_draft on any
+		# object in an association chain and have it save properly both up and
+		# down the chain.
+		#
+		# For the moment, it should work if you save from the top of the chain.
+		# Given the time constraints right now, let's use that for the moment.
+		#
+		# describe "a class which may belongs_to something else, e.g. a Comment" do
+			# describe "when no associated class is set, e.g. there's no Article" do
+			# 	before do
+			# 		@comment = Comment.new(:text => "foo")
+			# 		@draft_count = Draft.count
+			# 		@comment.save_draft
+			# 	end
+
+			# 	it "should save a draft" do
+			# 		assert_equal(@draft_count + 1, Draft.count)
+			# 	end
+			# end
+
+			# describe "when there's an article" do
+			# 	before do
+			# 		@article = Article.create(:text => "I'm an article")
+			# 		@comment = Comment.new(:text => "I belong to the article")
+			# 		@comment.article = @article
+			# 		@draft_count = Draft.count
+			# 		@comment.save_draft
+			# 	end
+
+				# it "should save a draft" do
+				# 	assert_equal(@draft_count + 1, Draft.count)
+				# end
+
+			# 	it "should add the @comment to the @article's subdrafts" do
+			# 		assert @article.draft.subdrafts.include? Draft.last
+			# 	end
+			# end
+		# end
 	end
 
 end
