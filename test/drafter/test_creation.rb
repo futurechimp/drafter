@@ -166,7 +166,7 @@ class TestCreation < Minitest::Unit::TestCase
 		# down the chain.
 		#
 		# For the moment, it should work if you save from the top of the chain.
-		# Given the time constraints right now, let's use that for the moment.
+		# Given the time constraints right now, let's use that.
 		#
 		# describe "a class which may belongs_to something else, e.g. a Comment" do
 			# describe "when no associated class is set, e.g. there's no Article" do
