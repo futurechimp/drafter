@@ -39,9 +39,9 @@ module Drafter
       include Subdrafts
     end
 
-    def approves_drafts_for(*associations)
-      cattr_accessor :approves_drafts_for
-      self.approves_drafts_for = associations
+    def saves_subdrafts_for(*associations)
+      cattr_accessor :saves_subdrafts_for
+      self.saves_subdrafts_for = associations
     end
   end
 

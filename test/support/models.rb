@@ -3,7 +3,7 @@
 # A draftable article class
 class Article < ActiveRecord::Base
 	draftable
-  approves_drafts_for :comments
+  saves_subdrafts_for :comments
 
   has_many :comments
   has_many :likes, :as => :likeable

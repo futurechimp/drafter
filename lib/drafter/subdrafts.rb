@@ -3,7 +3,7 @@ module Subdrafts
   private
 
     def create_subdrafts
-      relations = self.class.approves_drafts_for
+      relations = self.class.saves_subdrafts_for
       unless relations.empty?
         relations.each do |relation|
           create_subdrafts_for(relation)
