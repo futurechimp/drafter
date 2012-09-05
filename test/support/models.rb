@@ -17,7 +17,7 @@ end
 #
 # We can use this to test out has_many associations.
 class Comment < ActiveRecord::Base
-  draftable
+  draftable :delegate_approval_to => :article
 
   belongs_to :article
   has_many :likes, :as => :likeable
@@ -30,7 +30,7 @@ end
 # has_many relationship.
 class Like < ActiveRecord::Base
 
-  draftable(:polymorphic_as => :likeable)
+  draftable(:polymorphic_as => :likeable, :delegate_approval_to => :likeable)
 
   belongs_to :likeable, :polymorphic => true
 

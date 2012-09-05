@@ -72,4 +72,53 @@ class Draft < ActiveRecord::Base
     draftabl
 	end
 
+  # It's possible to use the :delegate_approval_to => :foo option in the
+  # draftable class method, so that this model can be approved as part of its
+  # parent model. This method finds the 'approver', i.e. the Draft object which
+  # is the parent object of this one and for which calling the 'approve' method
+  # will approve this subdraft too.
+  #
+  # This is currently quite weak, in the sense that it'll screw up as soon
+  # as you depart from standard AR class naming conventions. It's a good
+  # target for future development, but I think at the moment, IAGNI.
+  #
+  # At the moment, we just return the parent if a delegate exists. This should
+  # do the trick for us right now, as we're not using deeply nested object
+  # graphs that need approvals. I've got the start of an alternate, somewhat
+  # stronger implementation, underneath that, but we don't have time to do up
+  # the general case right now.
+  #
+  # @return [Draft] approver the draft object which serves as the approval
+  #   context for this one. Returns self or a delegated draft object.
+  def approver
+    delegate = self.inflate.class.delegate_approval_to
+    if delegate
+      parent
+    else
+      self
+    end
+  end
+  #
+  # Alternate implementation:
+  # def approver
+  #   if delegate.nil?
+  #     self
+  #   elsif delegate == self.parent.draftable_type.underscore.to_sym
+  #     self.parent
+  #   else
+  #     For polymorphs, if we wanted to be really tight about things, we'd
+  #     check here to see whether the inflated parent object has a has_many
+  #     which matches this draft's parent_association_name, and if it does,
+  #     and that association name matches up with the draftable's class name
+  #     (or a :class_name specified in the relation), then we can conclude
+  #     that the parent delegation is correct. It might look like:
+      # if everything_matches_up <<<< do the code to match the previous paragraph
+      #   parent
+      # else
+      #   raise "It is unclear what Draft object you're looking for. Please ensure
+      #   that :delegate_approval_to => :foo points at a valid parent :foo"
+      # end
+    # end
+  # end
+
 end

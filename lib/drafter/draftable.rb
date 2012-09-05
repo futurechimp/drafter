@@ -11,6 +11,9 @@ module Drafter
         cattr_accessor :polymorphic_as
         self.polymorphic_as = options[:polymorphic_as]
 
+        cattr_accessor :delegate_approval_to
+        self.delegate_approval_to = options[:delegate_approval_to]
+
         class << self
           def draftable?
             true

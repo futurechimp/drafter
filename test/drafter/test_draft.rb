@@ -323,4 +323,64 @@ class TestDraft < Minitest::Unit::TestCase
 		end
 	end
 
+	describe "delegating approval" do
+	  before do
+	    @article = Article.new(:text => "I'm an article.")
+	  end
+
+	  describe "a non-delegated model" do
+	  	before do
+	  	  @draft = @article.save_draft
+	  	end
+
+	    it "should return its own draft" do
+	    	assert_equal(@draft, @draft.approver)
+	    end
+	  end
+
+	  describe "to a parent model, when the sub-draft is a draft for" do
+	    describe "just a regular model" do
+	      before do
+	        @comment = Comment.new
+	        @article.comments << @comment
+	        @article.save_draft
+	        @article_draft = Draft.first
+	        @comment_draft = Draft.last
+	      end
+
+	      it "should return the parent" do
+	        assert_equal(@article_draft, @comment_draft.approver)
+	      end
+	    end
+
+	    describe "a polymorphic model" do
+	    	before do
+					@article.save_draft
+	        @like = Like.new(:likeable => @article) # hack for polymorph
+	        @draft = @like.save_draft(@article.draft, :likes)
+	        @article_draft = Draft.first
+	        @like_draft = Draft.last
+	    	end
+
+	      it "should return the parent" do
+	      	assert_equal(@article_draft, @like_draft.approver)
+	      end
+	    end
+
+    	before do
+				@article.save_draft
+        @like = ReallyLike.new(:likeable => @article) # hack for polymorph
+        @draft = @like.save_draft(@article.draft, :likes)
+        @article_draft = Draft.first
+        @like_draft = Draft.last
+    	end
+
+      it "should return the parent" do
+      	assert_equal(@article_draft, @like_draft.approver)
+      end
+	  end
+
+
+	end
+
 end
