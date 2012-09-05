@@ -72,10 +72,4 @@ class Draft < ActiveRecord::Base
     draftabl
 	end
 
-  def approve_subdrafts
-    subdrafts.each do |subdraft|
-      subdraft.approve!
-    end
-  end
-
 end
