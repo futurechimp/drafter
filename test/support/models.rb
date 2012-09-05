@@ -30,9 +30,11 @@ end
 # has_many relationship.
 class Like < ActiveRecord::Base
 
-  draftable
+  draftable(:polymorphic_as => :likeable)
 
   belongs_to :likeable, :polymorphic => true
+
+  validates_presence_of :likeable
 
 end
 

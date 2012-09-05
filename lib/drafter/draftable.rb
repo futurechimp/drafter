@@ -8,6 +8,9 @@ module Drafter
       def draftable(options={})
         super(options)
 
+        cattr_accessor :polymorphic_as
+        self.polymorphic_as = options[:polymorphic_as]
+
         class << self
           def draftable?
             true
