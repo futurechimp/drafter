@@ -40,6 +40,7 @@ module Drafter
     def restore_subdrafts
       draft.subdrafts.each_with_index do |subdraft, index|
         inflated_object = subdraft.build_draftable
+        puts "Inflated a #{inflated_object.class}"
         self.send(subdraft.parent_association_name.to_sym) << inflated_object
       end
     end

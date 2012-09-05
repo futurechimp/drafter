@@ -124,16 +124,17 @@ class TestCreation < Minitest::Unit::TestCase
             end
 
             it "should properly restore the first file, foo.txt" do
-              assert_equal(file_upload.read, File.new(@reloaded.comments.first.upload.path).read)
+              contents = File.new(@reloaded.comments.first.upload.path).read
+              assert_equal(file_upload.read, contents)
             end
 
             it "should properly restore the second file, bar.txt" do
-              assert_equal(file_upload("bar.txt").read, File.new(@reloaded.comments.last.upload.path).read)
+              contents = File.new(@reloaded.comments.last.upload.path).read
+              assert_equal(file_upload("bar.txt").read, contents)
             end
           end
         end
       end
     end
   end
-
 end

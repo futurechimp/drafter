@@ -3,14 +3,17 @@ require 'helper'
 class TestSubdrafts < Minitest::Unit::TestCase
 
   describe "Saving a draft for an article" do
-    describe "with 1 attached comment" do
+    before do
+      @article = Article.new(:text => "I'm an article.")
+      @article_count = Article.count
+      @draft_count = Draft.count
+    end
+
+    describe "and attaching a comment" do
       before do
         @comment_count = Comment.count
-        @article = Article.new(:text => "I'm an article.")
-        @article.comments << Comment.new(:text => "What a great article!", :upload => file_upload)
-        @article_count = Article.count
-        @draft_count = Draft.count
         @draft_upload_count = DraftUpload.count
+        @article.comments << Comment.new(:text => "What a great article!", :upload => file_upload)
         @draft = @article.save_draft
         @article_draft = Draft.first
         @comment_draft = Draft.last
@@ -57,7 +60,7 @@ class TestSubdrafts < Minitest::Unit::TestCase
           end
         end
 
-        describe "and adding another comment" do
+        describe "and adding another couple of comments" do
           before do
             @article.comments << Comment.new(:text => "SuperComment")
             @draft = @article.save_draft
@@ -70,6 +73,104 @@ class TestSubdrafts < Minitest::Unit::TestCase
             assert_equal("SuperComment", @article.comments.second.text)
             assert_equal("AnotherComment", @article.comments.third.text)
           end
+        end
+      end
+    end
+
+    describe "and attaching a @like, which is a polymorphic sub-object" do
+      before do
+        @like_count = Like.count
+        @article.save_draft
+        @like = Like.new(:likeable => @article)
+        @draft = @like.save_draft(@article.draft, :likes)
+        @article_draft = Draft.first
+        @like_draft = Draft.last
+      end
+
+      it "should save 2 new drafts" do
+        assert_equal(@draft_count + 2, Draft.count)
+      end
+
+      describe "restoring the like subdraft to the article" do
+        before do
+          @article = @article_draft.build_draftable
+        end
+
+        it "should work" do
+          assert_equal(1, @article.likes.length)
+        end
+      end
+
+      describe "approving the article (so we start from the top of the chain)" do
+        before do
+          @draft_count = Draft.count
+          @article_count = Article.count
+          @like_count = Like.count
+          @article_draft.approve!
+        end
+
+        it "should destroy the draft objects" do
+          assert_equal(@draft_count - 2, Draft.count)
+        end
+
+        it "should create a new article" do
+          assert_equal(@article_count + 1, Article.count)
+        end
+
+        it "should create a new Like" do
+          assert_equal(@like_count + 1, Like.count)
+        end
+      end
+
+    end
+
+    describe "and attaching a polymorphic sub-object with STI" do
+      before do
+        @really_like_count = ReallyLike.count
+        @article.save_draft
+        @really_like = ReallyLike.new(:likeable => @article)
+        @draft = @really_like.save_draft(@article.draft, :likes)
+        @article_draft = Draft.first
+        @really_like_draft = Draft.last
+      end
+
+      it "should save 2 new drafts" do
+        assert_equal(@draft_count + 2, Draft.count)
+      end
+
+      describe "restoring the like subdraft to the article" do
+        before do
+          @article = @article_draft.build_draftable
+        end
+
+        it "should work, using the parent class association" do
+          assert_equal(1, @article.likes.length)
+        end
+      end
+
+      describe "approving the article (so we start from the top of the chain)" do
+        before do
+          @draft_count = Draft.count
+          @article_count = Article.count
+          @like_count = Like.count
+          @really_like_count = ReallyLike.count
+          @article_draft.approve!
+        end
+
+        it "should destroy the draft objects" do
+          assert_equal(@draft_count - 2, Draft.count)
+        end
+
+        it "should create a new article" do
+          assert_equal(@article_count + 1, Article.count)
+        end
+
+        it "should create a new Like" do
+          assert_equal(@like_count + 1, Like.count)
+        end
+
+        it "should create a new ReallyLike" do
+          assert_equal(@really_like_count + 1, ReallyLike.count)
         end
       end
     end

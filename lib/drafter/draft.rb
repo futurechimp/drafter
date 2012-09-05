@@ -25,7 +25,7 @@ class Draft < ActiveRecord::Base
   # Looked at from the other end, the parent draft should be able to address
   # its subdrafts.
   #
-  has_many :subdrafts, :class_name => "Draft", :foreign_key => "parent_id" #, :dependent => :destroy # << test that
+  has_many :subdrafts, :class_name => "Draft", :foreign_key => "parent_id", :dependent => :destroy # << test that
 
 	# Store serialized data for the associated draftable as a Hash of
   # attributes.
