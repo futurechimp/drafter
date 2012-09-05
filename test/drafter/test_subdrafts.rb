@@ -32,22 +32,22 @@ class TestSubdrafts < Minitest::Unit::TestCase
       end
 
       it "should serialize the comment draft fields properly" do
-        assert @comment_draft.build_draftable.is_a? Comment
+        assert @comment_draft.inflate.is_a? Comment
         assert_equal("What a great article!", @comment_draft.text)
       end
 
       it "should save a draft upload for the comment's uploaded file" do
         assert_equal(@draft_upload_count + 1, DraftUpload.count)
-        assert_equal(file_upload.size, File.new(@comment_draft.build_draftable.upload.path).size)
+        assert_equal(file_upload.size, File.new(@comment_draft.inflate.upload.path).size)
       end
 
       it "should correctly associate the comment draft with its parent" do
         assert_equal(@article_draft, @comment_draft.parent)
       end
 
-      describe "after calling build_draftable on a draft" do
+      describe "after calling inflate on a draft" do
         before do
-          @article = @draft.build_draftable
+          @article = @draft.inflate
         end
 
         it "should still have 1 comment on it" do
@@ -56,7 +56,7 @@ class TestSubdrafts < Minitest::Unit::TestCase
 
         describe "restoring the draft" do
           it "should work" do
-            assert (@article = @draft.build_draftable).is_a? Article
+            assert (@article = @draft.inflate).is_a? Article
           end
         end
 
@@ -64,7 +64,7 @@ class TestSubdrafts < Minitest::Unit::TestCase
           before do
             @article.comments << Comment.new(:text => "SuperComment")
             @draft = @article.save_draft
-            @article = @draft.build_draftable
+            @article = @draft.inflate
             @article.comments << Comment.new(:text => "AnotherComment")
           end
 
@@ -93,7 +93,7 @@ class TestSubdrafts < Minitest::Unit::TestCase
 
       describe "restoring the like subdraft to the article" do
         before do
-          @article = @article_draft.build_draftable
+          @article = @article_draft.inflate
         end
 
         it "should work" do
@@ -140,7 +140,7 @@ class TestSubdrafts < Minitest::Unit::TestCase
 
       describe "restoring the like subdraft to the article" do
         before do
-          @article = @article_draft.build_draftable
+          @article = @article_draft.inflate
         end
 
         it "should work, using the parent class association" do

@@ -159,7 +159,7 @@ class TestDraft < Minitest::Unit::TestCase
 		describe "for an unsaved object" do
 			before do
 				@draft = @article.save_draft
-				@article = @draft.build_draftable
+				@article = @draft.inflate
 			end
 
 			it "should build the object's attributes properly" do
@@ -187,7 +187,7 @@ class TestDraft < Minitest::Unit::TestCase
 				before do
 	        @article.comments << Comment.new(:text => "comment 3")
 	        @draft = @article.save_draft
-	        @article = @draft.build_draftable
+	        @article = @draft.inflate
 				end
 
 				it "should build the object's attributes properly" do
@@ -216,7 +216,7 @@ class TestDraft < Minitest::Unit::TestCase
 					before do
 		        @article.text = "ChChChanges"
 		        @draft = @article.save_draft
-		        @article = @draft.build_draftable
+		        @article = @draft.inflate
 					end
 					it "should build the object's attributes properly" do
 						assert_equal("ChChChanges", @article.text)
@@ -247,7 +247,7 @@ class TestDraft < Minitest::Unit::TestCase
 				@article.save!
 				@article.text = "flappa flap flap"
 				@draft = @article.save_draft
-				@article = @draft.build_draftable
+				@article = @draft.inflate
 			end
 
 			it "should build the object's attributes properly" do

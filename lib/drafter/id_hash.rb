@@ -9,7 +9,7 @@ module IdHash
   # identify the object by its :id; other times, you're dealing with an object
   # that only has a Draft but no actual object identity, in which case you'll
   # want to retrieve the Draft object by its :draft_id, and call
-  # @draft.build_draftable on that.
+  # @draft.inflate on that.
   #
   # @return [Hash] a hash with either :draft_id => this object's draft's id,
   #   or :id => this object's id.

@@ -36,7 +36,7 @@ class Draft < ActiveRecord::Base
   # contain the draft content, saving the draftable, and destroying the draft.
   #
   def approve!
-  	draftable = build_draftable
+  	draftable = inflate
   	draftable.save!
   	self.destroy
   	draftable
@@ -65,7 +65,7 @@ class Draft < ActiveRecord::Base
   #
 	# @return the existing draftable object, or a new one of the proper
 	# 	type, with attributes and files hanging off it.
-	def build_draftable
+	def inflate
     draftabl = draftable.nil? ? self.draftable_type.constantize.new(:draft => self) : draftable
     draftabl.draft = self # this should absolutely *not* be necessary, there's an STI bug in AR.
     draftabl.apply_draft

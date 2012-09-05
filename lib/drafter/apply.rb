@@ -82,7 +82,7 @@ module Drafter
     #
     def restore_subdrafts
       draft.subdrafts.each_with_index do |subdraft, index|
-        inflated_object = subdraft.build_draftable
+        inflated_object = subdraft.inflate
         self.send(subdraft.parent_association_name.to_sym) << inflated_object
         # THE HACK
         if inflated_object.class.polymorphic_as

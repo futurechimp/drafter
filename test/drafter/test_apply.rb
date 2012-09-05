@@ -16,7 +16,7 @@ class TestCreation < Minitest::Unit::TestCase
 
       describe "with no comments" do
         before do
-          @article = @draft.build_draftable
+          @article = @draft.inflate
           @article.apply_draft
         end
 
@@ -28,10 +28,10 @@ class TestCreation < Minitest::Unit::TestCase
 
       describe "with comments" do
         before do
-          @article = @draft.build_draftable
+          @article = @draft.inflate
           @article.comments.build(:text => "I'm a comment on a draft article")
           @draft = @article.save_draft
-          @article = @draft.build_draftable
+          @article = @draft.inflate
         end
 
         it "should restore the article, unsaved" do
