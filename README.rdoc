@@ -12,6 +12,54 @@ So far, it can correctly handle the following cases:
 * drafts for new and saved records, with attached CarrierWave uploads
 * drafts for new and saved records, properly saving drafts for sub-objects in has_many associations, with or without attached CarrierWave uploads.
 
+It requires a bit of change in your controller actions: you always need to check
+whether you've got a persisted instance of your class, or whether you're inflating
+it from a draft. You might do it like this (for an :update action, in a Padrino
+example):
+
+```ruby
+  put :update do
+    @page = find_or_inflate_draft_for(Page)
+    @page.assign_attributes(params[:page])
+
+    if @page.save_draft
+      flash[:notice] = "Page was successfully updated."
+      redirect url(:pages, :show, @page.id_hash)
+    else
+      render 'pages/edit'
+    end
+  end
+```
+
+@page.id_hash gives back either :id => (the actual persisted page object).to_param
+or :draft_id => (the draft object).to_param, depending on the current state of the
+@page object (draft or persisted).
+
+You'd need to add some helper code to your application:
+
+```ruby
+  def find_or_inflate_draft_for(klazz)
+    if params[:draft_id]
+      Draft.find(params[:draft_id]).inflate
+    else
+      klazz.find(params[:id]).apply_draft
+    end
+  end
+
+  # This one can help you if you've got polymorphic has_many associations
+  # in your application. Your foreign key scheme may be a little different
+  # than this, adapt as necessary.
+  #
+  def find_or_inflate_draft_as(klazz, as)
+    if params["draft_#{as}_id"]
+      Draft.find(params["draft_#{as}_id"]).inflate
+    else
+      klazz.find(params["#{as}_id"]).apply_draft
+    end
+  end
+```
+
+
 == Contributing to drafter
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
